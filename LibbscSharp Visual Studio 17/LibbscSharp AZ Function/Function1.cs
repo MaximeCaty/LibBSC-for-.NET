@@ -51,11 +51,11 @@ public class Function1
             {
                 return new NotFoundObjectResult("Empty request body.");
             }
-            if (inputData.Length < 4 ||
-            inputData[0] != (byte)'b' ||
-            inputData[1] != (byte)'s' ||
-            inputData[2] != (byte)'c' ||
-            inputData[3] != (byte)'1')
+            if (inputData.Length > 4 &&
+            inputData[0] == (byte)'b' &&
+            inputData[1] == (byte)'s' &&
+            inputData[2] == (byte)'c' &&
+            inputData[3] == (byte)'1')
             {
                 return new BadRequestObjectResult("Input data is already compressed.");
             }
@@ -69,12 +69,12 @@ public class Function1
             int result = BscDotNet.Compressor.CompressOmp(
                 inputStream,
                 outputStream,
-                blockSize: 50 * 1024 * 1024, // blocksize (ram consume about 2x block size per thread)
+                blockSizeMb * 1024 * 1024, // blocksize (ram consume about 2x block size per thread)
                 NumThreads: 0, // 0 = auto (uses all cores) note that Azure Function basic plan only have one core
                 lzpHashSize: 16,
                 lzpMinLen: 128,
                 blockSorter: 1, // Usualy best option (preceeding)
-                coder: 1 // 0 = fast, 1 = medium, 2 = high
+                coder // 0 = fast, 1 = medium, 2 = high
             );
             if (result < 0)
             {
