@@ -1,0 +1,8 @@
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp .Net Framework 4.8\bin\Release\LibbscShartp.Net_Framework_4._8.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp .Net Framework 4.8\bin\Release\LibbscShartp.Net_Framework_4._8.pdb
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp .Net Framework 4.8\bin\Release\bscwrapperCLR.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp .Net Framework 4.8\obj\Release\LibbscSharp .Net Framework 4.8.csproj.AssemblyReference.cache
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp .Net Framework 4.8\obj\Release\LibbscSharp .Net Framework 4.8.csproj.CoreCompileInputs.cache
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp .Net Framework 4.8\obj\Release\LibbscSh.8D132EC8.Up2Date
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp .Net Framework 4.8\obj\Release\LibbscShartp.Net_Framework_4._8.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp .Net Framework 4.8\obj\Release\LibbscShartp.Net_Framework_4._8.pdb

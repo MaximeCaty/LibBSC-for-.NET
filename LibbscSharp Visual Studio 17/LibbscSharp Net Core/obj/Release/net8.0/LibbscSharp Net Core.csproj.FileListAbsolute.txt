@@ -1,0 +1,14 @@
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\bin\Release\net8.0\LibbscSharp Net Core.deps.json
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\bin\Release\net8.0\LibbscSharp Net Core.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\bin\Release\net8.0\LibbscSharp Net Core.pdb
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\bin\Release\net8.0\bscwrapperCLR.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscSharp Net Core.csproj.AssemblyReference.cache
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscSharp Net Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscSharp Net Core.AssemblyInfoInputs.cache
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscSharp Net Core.AssemblyInfo.cs
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscSharp Net Core.csproj.CoreCompileInputs.cache
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscSh.1BC957A6.Up2Date
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscSharp Net Core.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\refint\LibbscSharp Net Core.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscSharp Net Core.pdb
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\ref\LibbscSharp Net Core.dll

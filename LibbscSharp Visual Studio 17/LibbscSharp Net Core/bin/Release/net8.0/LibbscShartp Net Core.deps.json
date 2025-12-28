@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "LibbscShartp Net Core/1.0.0": {
+        "dependencies": {
+          "bscwrapperCLR": "1.0.0"
+        },
+        "runtime": {
+          "LibbscShartp Net Core.dll": {}
+        }
+      },
+      "bscwrapperCLR/1.0.0": {
+        "runtime": {
+          "bscwrapperCLR.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LibbscShartp Net Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "bscwrapperCLR/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
