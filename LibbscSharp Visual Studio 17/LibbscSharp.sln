@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibBSC CLR Port .Net Framew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibbscSharp Console Tester", "bsc wrapper console C# test\LibbscSharp Console Tester.csproj", "{C3EFA5DB-5576-46FB-99AD-34095E531AE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibbscSharp Net Core", "LibbscShartp Net Code\LibbscSharp Net Core.csproj", "{F40A4879-1E49-4E34-90FF-69E33D292ABE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibbscSharp Net Core", "LibbscShartp Net Core\LibbscSharp Net Core.csproj", "{F40A4879-1E49-4E34-90FF-69E33D292ABE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibBSC CLR Port .Net Core", "bscwrapperCLR FrameWork 4.8\bscwrapperCLR FrameWork 4.8.vcxproj", "{C765B911-24F2-44C0-B877-DC1F5A858F4B}"
 EndProject
