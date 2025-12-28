@@ -1,0 +1,16 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly bscwrapperCLR .NET Framework, Version=0.0.*, Culture=Langue indifférente (Pays indifférent): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class BscDotNet.Compressor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CompressOmp(Stream, Stream, Int32, Int32, Int32, Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig
+    DecompressOmp(Stream, Stream, Int32): PrivateScope, Public, Static, HideBySig
+    Compress(Stream, Stream, Int32): PrivateScope, Public, Static, HideBySig
+    Decompress(Stream, Stream): PrivateScope, Public, Static, HideBySig
