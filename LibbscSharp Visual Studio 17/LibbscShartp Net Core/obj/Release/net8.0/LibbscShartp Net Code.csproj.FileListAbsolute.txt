@@ -1,0 +1,15 @@
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\bin\Release\net8.0\Ijwhost.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\bin\Release\net8.0\LibbscShartp Net Code.deps.json
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\bin\Release\net8.0\LibbscShartp Net Code.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\bin\Release\net8.0\LibbscShartp Net Code.pdb
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\bin\Release\net8.0\bscwrapperCLR.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscShartp Net Code.csproj.AssemblyReference.cache
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscShartp Net Code.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscShartp Net Code.AssemblyInfoInputs.cache
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscShartp Net Code.AssemblyInfo.cs
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscShartp Net Code.csproj.CoreCompileInputs.cache
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscSh.C6705230.Up2Date
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscShartp Net Code.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\refint\LibbscShartp Net Code.dll
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\LibbscShartp Net Code.pdb
+C:\Users\Max\source\repos\bscwrapperCLR\LibbscShartp Net Code\obj\Release\net8.0\ref\LibbscShartp Net Code.dll
