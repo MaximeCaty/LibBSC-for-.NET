@@ -1,0 +1,18 @@
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\bsc wrapper console C# test.exe.config
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\bsc wrapper console C# test.exe
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\bsc wrapper console C# test.pdb
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\bscwrapperCLR.dll
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\obj\Release\bsc wrapper console C# test.csproj.AssemblyReference.cache
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\obj\Release\bsc wrapper console C# test.csproj.CoreCompileInputs.cache
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\obj\Release\bsc wrap.AF82DE82.Up2Date
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\obj\Release\bsc wrapper console C# test.exe
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\obj\Release\bsc wrapper console C# test.pdb
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\System.Buffers.dll
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\System.Memory.dll
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\System.Numerics.Vectors.dll
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\System.Buffers.xml
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\System.Memory.xml
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\System.Numerics.Vectors.xml
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Max\source\repos\bscwrapperCLR\bsc wrapper console C# test\obj\Release\bsc wrapper console C# test.exe.config
