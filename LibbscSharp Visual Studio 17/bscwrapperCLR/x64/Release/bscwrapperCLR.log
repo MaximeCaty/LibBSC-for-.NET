@@ -1,6 +1,0 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(538,5): warning MSB8028: Le répertoire intermédiaire (x64\Release\) contient des fichiers partagés provenant d'un autre projet (bscwrapperCLR.vcxproj, LibBSC CLR Port .Net Core.vcxproj). Cela peut entraîner un comportement de nettoyage et de regénération incorrect.
-  bscwrapperCLR.cpp
-  preprocessing.cpp
-  .NETFramework,Version=4.8.AssemblyAttributes.cpp
-  Génération de code en cours...
-  bscwrapperCLR.vcxproj -> C:\Users\Max\source\repos\bscwrapperCLR\x64\Release\bscwrapperCLR.dll

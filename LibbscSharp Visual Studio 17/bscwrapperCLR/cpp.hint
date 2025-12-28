@@ -1,2 +1,0 @@
-#define BSCWRAPPERCLR_API __declspec(dllexport)
-#define BSCWRAPPERCLR_API __declspec(dllimport)

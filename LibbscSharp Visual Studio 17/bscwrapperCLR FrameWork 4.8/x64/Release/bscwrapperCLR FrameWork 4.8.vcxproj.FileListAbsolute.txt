@@ -1,5 +1,0 @@
-C:\Users\Max\source\repos\bscwrapperCLR\x64\Release\Ijwhost.dll
-C:\Users\Max\source\repos\bscwrapperCLR\x64\Release\bscwrapperCLR.deps.json
-C:\Users\Max\source\repos\bscwrapperCLR\x64\Release\bscwrapperCLR.runtimeconfig.json
-C:\Users\Max\source\repos\bscwrapperCLR\bscwrapperCLR FrameWork 4.8\x64\Release\bscwrapperCLR FrameWork 4.8.vcxproj.AssemblyReference.cache
-C:\Users\Max\source\repos\bscwrapperCLR\bscwrapperCLR FrameWork 4.8\x64\Release\bscwrapperCLR FrameWork 4.8.genruntimeconfig.cache

@@ -1,1 +1,0 @@
-C:\Users\Max\source\repos\bscwrapperCLR\bscwrapperCLR\x64\Release\bscwrapperCLR.vcxproj.AssemblyReference.cache
