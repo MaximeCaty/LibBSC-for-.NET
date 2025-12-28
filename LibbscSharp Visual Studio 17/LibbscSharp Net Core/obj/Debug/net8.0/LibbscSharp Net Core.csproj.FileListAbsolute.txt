@@ -1,0 +1,17 @@
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\bin\Debug\net8.0\Ijwhost.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\bin\Debug\net8.0\LibbscSharp Net Core.deps.json
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\bin\Debug\net8.0\LibbscSharp Net Core.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\bin\Debug\net8.0\LibbscSharp Net Core.pdb
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\bin\Debug\net8.0\bscwrapperCLR .NET Core.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\bin\Debug\net8.0\bscwrapperCLR .NET Core.pdb
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\LibbscSharp Net Core.csproj.AssemblyReference.cache
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\LibbscSharp Net Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\LibbscSharp Net Core.AssemblyInfoInputs.cache
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\LibbscSharp Net Core.AssemblyInfo.cs
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\LibbscSharp Net Core.csproj.CoreCompileInputs.cache
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\LibbscSharp Net Core.sourcelink.json
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\LibbscSh.1BC957A6.Up2Date
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\LibbscSharp Net Core.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\refint\LibbscSharp Net Core.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\LibbscSharp Net Core.pdb
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Net Core\obj\Debug\net8.0\ref\LibbscSharp Net Core.dll

@@ -1,12 +1,139 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C760B911-24F2-44C0-B877-DC1F5A85804B}|bscwrapperCLR .Net Core\\bscwrapperCLR .NET Core.vcxproj|C:\\Users\\Max\\Source\\Repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\bscwrapperCLR .Net Core\\bscwrapperCLR.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C760B911-24F2-44C0-B877-DC1F5A85804B}|bscwrapperCLR .Net Core\\bscwrapperCLR .NET Core.vcxproj|solutionrelative:bscwrapperCLR .Net Core\\bscwrapperCLR.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F40A4879-1E49-4E34-90FF-69E33D292ABE}|LibbscSharp Net Core\\LibbscSharp Net Core.csproj|c:\\users\\max\\source\\repos\\libbsc-for-.net\\libbscsharp visual studio 17\\libbscsharp net core\\libbscsharp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F40A4879-1E49-4E34-90FF-69E33D292ABE}|LibbscSharp Net Core\\LibbscSharp Net Core.csproj|solutionrelative:libbscsharp net core\\libbscsharp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38A77518-6E7A-44CB-BF09-EC8DBAFFF445}|LibbscSharp AZ Function\\LibbscSharp AZ Function.csproj|c:\\users\\max\\source\\repos\\libbsc-for-.net\\libbscsharp visual studio 17\\libbscsharp az function\\function.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38A77518-6E7A-44CB-BF09-EC8DBAFFF445}|LibbscSharp AZ Function\\LibbscSharp AZ Function.csproj|solutionrelative:libbscsharp az function\\function.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C760B911-24F2-44C0-B877-DC1F5A85804B}|bscwrapperCLR .Net Core\\bscwrapperCLR .NET Core.vcxproj|C:\\Users\\Max\\Source\\Repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\bscwrapperCLR .Net Core\\bscwrapperCLR.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C760B911-24F2-44C0-B877-DC1F5A85804B}|bscwrapperCLR .Net Core\\bscwrapperCLR .NET Core.vcxproj|solutionrelative:bscwrapperCLR .Net Core\\bscwrapperCLR.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D53FD23-1E3B-4878-9F13-7DD8EFA9DBCC}|bscwrapperCLR FrameWork 4.8\\bscwrapperCLR FrameWork 4.8.vcxproj|C:\\Users\\Max\\Source\\Repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\bscwrapperCLR FrameWork 4.8\\bscwrapperCLR.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9D53FD23-1E3B-4878-9F13-7DD8EFA9DBCC}|bscwrapperCLR FrameWork 4.8\\bscwrapperCLR FrameWork 4.8.vcxproj|solutionrelative:bscwrapperCLR FrameWork 4.8\\bscwrapperCLR.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38A77518-6E7A-44CB-BF09-EC8DBAFFF445}|LibbscSharp AZ Function\\LibbscSharp AZ Function.csproj|c:\\users\\max\\source\\repos\\libbsc-for-.net\\libbscsharp visual studio 17\\libbscsharp az function\\libbscsharp az function.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{38A77518-6E7A-44CB-BF09-EC8DBAFFF445}|LibbscSharp AZ Function\\LibbscSharp AZ Function.csproj|solutionrelative:libbscsharp az function\\libbscsharp az function.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53AD8A7B-2A49-4366-8CCA-3848E4D05E90}|LibbscSharp .Net Framework 4.8\\LibbscSharp .Net Framework 4.8.csproj|c:\\users\\max\\source\\repos\\libbsc-for-.net\\libbscsharp visual studio 17\\libbscsharp .net framework 4.8\\libbscsharp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53AD8A7B-2A49-4366-8CCA-3848E4D05E90}|LibbscSharp .Net Framework 4.8\\LibbscSharp .Net Framework 4.8.csproj|solutionrelative:libbscsharp .net framework 4.8\\libbscsharp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "bscwrapperCLR.h",
+              "DocumentMoniker": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\bscwrapperCLR .Net Core\\bscwrapperCLR.h",
+              "RelativeDocumentMoniker": "bscwrapperCLR .Net Core\\bscwrapperCLR.h",
+              "ToolTip": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\bscwrapperCLR .Net Core\\bscwrapperCLR.h",
+              "RelativeToolTip": "bscwrapperCLR .Net Core\\bscwrapperCLR.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-28T18:16:09.638Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LibbscSharp.cs",
+              "DocumentMoniker": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\LibbscSharp Net Core\\LibbscSharp.cs",
+              "RelativeDocumentMoniker": "LibbscSharp Net Core\\LibbscSharp.cs",
+              "ToolTip": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\LibbscSharp Net Core\\LibbscSharp.cs",
+              "RelativeToolTip": "LibbscSharp Net Core\\LibbscSharp.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T17:39:06.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LibbscSharp AZ Function",
+              "DocumentMoniker": "C:\\Users\\Max\\Source\\Repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\LibbscSharp AZ Function\\LibbscSharp AZ Function.csproj",
+              "RelativeDocumentMoniker": "LibbscSharp AZ Function\\LibbscSharp AZ Function.csproj",
+              "ToolTip": "C:\\Users\\Max\\Source\\Repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\LibbscSharp AZ Function\\LibbscSharp AZ Function.csproj",
+              "RelativeToolTip": "LibbscSharp AZ Function\\LibbscSharp AZ Function.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-28T17:27:50.165Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "bscwrapperCLR.cpp",
+              "DocumentMoniker": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\bscwrapperCLR FrameWork 4.8\\bscwrapperCLR.cpp",
+              "RelativeDocumentMoniker": "bscwrapperCLR FrameWork 4.8\\bscwrapperCLR.cpp",
+              "ToolTip": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\bscwrapperCLR FrameWork 4.8\\bscwrapperCLR.cpp",
+              "RelativeToolTip": "bscwrapperCLR FrameWork 4.8\\bscwrapperCLR.cpp",
+              "ViewState": "AgIAAAQBAAAAAAAAAAAYwBEBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-28T17:25:36.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "LibbscSharp.cs",
+              "DocumentMoniker": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\LibbscSharp .Net Framework 4.8\\LibbscSharp.cs",
+              "RelativeDocumentMoniker": "LibbscSharp .Net Framework 4.8\\LibbscSharp.cs",
+              "ToolTip": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\LibbscSharp .Net Framework 4.8\\LibbscSharp.cs",
+              "RelativeToolTip": "LibbscSharp .Net Framework 4.8\\LibbscSharp.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T17:24:36.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "bscwrapperCLR.cpp",
+              "DocumentMoniker": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\bscwrapperCLR .Net Core\\bscwrapperCLR.cpp",
+              "RelativeDocumentMoniker": "bscwrapperCLR .Net Core\\bscwrapperCLR.cpp",
+              "ToolTip": "C:\\Users\\Max\\source\\repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\bscwrapperCLR .Net Core\\bscwrapperCLR.cpp",
+              "RelativeToolTip": "bscwrapperCLR .Net Core\\bscwrapperCLR.cpp",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAAC0AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-28T17:23:02.423Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Function.cs",
+              "DocumentMoniker": "C:\\Users\\Max\\Source\\Repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\LibbscSharp AZ Function\\Function.cs",
+              "RelativeDocumentMoniker": "LibbscSharp AZ Function\\Function.cs",
+              "ToolTip": "C:\\Users\\Max\\Source\\Repos\\LibBSC-for-.NET\\LibbscSharp Visual Studio 17\\LibbscSharp AZ Function\\Function.cs",
+              "RelativeToolTip": "LibbscSharp AZ Function\\Function.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwB0AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T17:22:29.236Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

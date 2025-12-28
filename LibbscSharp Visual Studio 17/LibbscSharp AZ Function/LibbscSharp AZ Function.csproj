@@ -16,19 +16,13 @@
     <PackageReference Include="Microsoft.Azure.Functions.Worker.ApplicationInsights" Version="2.50.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="2.0.7" />
-    <Reference Include="bscwrapperCLR">
-      <HintPath>lib\bscwrapperCLR.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\bscwrapperCLR .Net Core\bscwrapperCLR .NET Core.vcxproj" />
 
-  <None Update="lib/bscwrapperCLR.dll">
+  <None Update="lib/bscwrapperCLR .NET Core.dll">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     <CopyToPublishDirectory>Always</CopyToPublishDirectory>
   </None>
   <None Update="lib/Ijwhost.dll">
-    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-  </None>
-  <None Update="lib/LibbscShartp Net Core.dll">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     <CopyToPublishDirectory>Always</CopyToPublishDirectory>
   </None>

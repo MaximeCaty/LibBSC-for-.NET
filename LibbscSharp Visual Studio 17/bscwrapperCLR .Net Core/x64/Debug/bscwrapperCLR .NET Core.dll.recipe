@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Max\source\repos\LibbscSharp\x64\Debug\bscwrapperCLR .NET Core.runtimeconfig.json</FullPath>
+      <FullPath>C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\bscwrapperCLR .NET Core.runtimeconfig.json</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Users\Max\source\repos\LibbscSharp\x64\Debug\bscwrapperCLR .NET Core.dll</FullPath>
+      <FullPath>C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\bscwrapperCLR .NET Core.dll</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

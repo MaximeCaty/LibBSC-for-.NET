@@ -1,0 +1,6 @@
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\Ijwhost.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\bscwrapperCLR .NET Core.deps.json
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\bscwrapperCLR .NET Core.runtimeconfig.json
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\bscwrapperCLR .Net Core\x64\Debug\bscwrapperCLR .NET Core.vcxproj.AssemblyReference.cache
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\bscwrapperCLR .Net Core\x64\Debug\bscwrapperCLR .NET Core.sourcelink.json
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\bscwrapperCLR .Net Core\x64\Debug\bscwrapperCLR .NET Core.genruntimeconfig.cache

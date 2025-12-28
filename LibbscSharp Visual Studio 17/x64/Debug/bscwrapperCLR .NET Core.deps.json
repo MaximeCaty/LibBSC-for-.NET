@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": "net8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    "net8.0": {
+      "bscwrapperCLR .NET Core/1.0.0": {
+        "runtime": {
+          "bscwrapperCLR .NET Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "bscwrapperCLR .NET Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
