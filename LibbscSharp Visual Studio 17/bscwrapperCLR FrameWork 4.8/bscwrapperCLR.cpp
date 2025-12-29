@@ -14,10 +14,7 @@
 #define LIBBSC_BLOCK_TYPE_BSC        1
 #define LIBBSC_COMPLVL_OUTRANGE      -20
 #define LIBBSC_BAD_PARAM             -21
-#define LIBBSC_DATA_TOO_LARGE        -22
 #define LIBBSC_NOT_SEEKABLE          -23
-#define LIBBSC_HEADER_CORRUPT        -25
-#define LIBBSC_SIZE_DONTMATCH        -26
 
 using namespace System;
 using namespace System::IO;

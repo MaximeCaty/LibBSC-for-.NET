@@ -14,10 +14,7 @@
 #define LIBBSC_BLOCK_TYPE_BSC        1
 #define LIBBSC_COMPLVL_OUTRANGE      -20
 #define LIBBSC_BAD_PARAM             -21
-#define LIBBSC_DATA_TOO_LARGE        -22
 #define LIBBSC_NOT_SEEKABLE          -23
-#define LIBBSC_HEADER_CORRUPT        -25
-#define LIBBSC_SIZE_DONTMATCH        -26
 
 using namespace System;
 using namespace System::IO;
@@ -45,7 +42,6 @@ typedef struct BSC_BLOCK_HEADER
 * @param coder                              - the entropy coding algorithm. Must be in range 1..3
 * @return 0 if succed, nagative value for error code
 */
-[SuppressGCTransition]
 int BscDotNet::Compressor::CompressOmp(Stream^ inputStream, Stream^ outputStream, int blockSize, int NumThreads, int lzpHashSize, int lzpMinLen, int blockSorter, int coder)
 {
     // Checks
@@ -141,7 +137,6 @@ int BscDotNet::Compressor::CompressOmp(Stream^ inputStream, Stream^ outputStream
 * @param numThreads                         - the number of threads to use if the file is multy-blocks
 * @return 0 if succed, nagative value for error code
 */
-[SuppressGCTransition]
 int BscDotNet::Compressor::DecompressOmp(Stream^ inputStream, Stream^ outputStream, int numThreads)
 {
     if (inputStream == nullptr || outputStream == nullptr)

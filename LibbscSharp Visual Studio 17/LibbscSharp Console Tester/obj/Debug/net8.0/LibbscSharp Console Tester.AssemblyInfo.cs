@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LibbscSharp Console Tester")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+714f5498e8d39934b67fb9054e9e7e7c95d26a6e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca4d84f9f999d3cd4adaea7827304b22ac79523e")]
 [assembly: System.Reflection.AssemblyProductAttribute("LibbscSharp Console Tester")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LibbscSharp Console Tester")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
