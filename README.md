@@ -1,43 +1,50 @@
 
-# LibbscSharp
+# LibBSC Sharp
 
-.NET Portage of the fine "Block Sorting Compression" library for by Ilya Grebnov : https://github.com/IlyaGrebnov/libbsc
+.NET Portage of the fine "Block Sorting Compression" library by Ilya Grebnov : https://github.com/IlyaGrebnov/libbsc
 
 - .NET Core 8.0
 - .NET Framework 4.8
 - Azure Function with HTTP trigger for cloud usage
+- Microsoft dynamics Business Central integration exemple
 
-Produced format is compatible with original command line tool (bsc.exe).
+Produce compatible file with original command line tool (bsc.exe).
 
 
-## Whats is BSC
+## What is BSC
 
-Block sorting compression is a method often achieving better size saving than dictionnary based, such as Gzip, 7z, even zStandard or Brotli. Ilya implemented a very high performance version in C/C++.
+Block sorting compression is a method achieving much higher compression than dictionnary (such as Gzip, 7z, even zStandard) on "industrial" file but is often very slow.
+Ilya implemented a high performance version of BSC in C/C++ that also support Cuda for GPU acceleration.
 
-It excel on "industrial" files with repeatable content and structured format like :
- - CSV, Flat, Excel file 
+
+It excel on reducing size of "industrial" files with repeatable content and structured format like :
+ - CSV, Flat, Excel, Json, Xml files 
  - Database Dump 
  - Binary table datas (row or column
    oriented)
 
-It perform poor on :
+It doesnt perform great on :
  - Already encoded media such as JPG, PNG, GIF, MP3, ...
  - Smaller files (< 100 KB)
 
+
 ### Comparisons
+
+Setup : i7 12700KF - 32GB DDR5
 
 Gzip : Fast level (2/9)
 BSC : Fast level (1/3), single thread
 ZStandard : Fast level (3), single thread
 
-| File | Size | GZ | % | Time | ZStd | % (cumul) | Time | BSC | % (cumul) | Time* |
+| File | Size | GZ | % | Time | ZStd | % (cumul) | Time | BSC | % (cumul) | Time** |
 |--|--|--|--|--|--|--|--|--|--|--|
-| CSV 100K Records | 16.5 MB | 7.9 MB | -52% | 780/71 | 7.1 MB | -10% | 110/40 | **4.1 MB** | **-42%** | *(219/125) 1600 / 740 |
-| CSV 1M Records | 50.0 MB | 24.9 MB | -50% | 2960/211 | 23.1 MB | -7% | 310/70 |**12.5 MB** | **-46%** | *(640/344) 4930/2250 |
-| Binary MySQL Employees exemple | 290 MB | 86.0 MB | -70% | 10'148/952 | 86.5 MB | +0% | 1040/260 |**52.2 MB** | **-40%** | *(3'281/2'175) 21'650/14'767 |
-**(call from command line/.NET) - call from Business Central through CLR interop.*
+| CSV 100K Records | 16.5 MB | 7.9 MB | -52% | 780/71 | 7.1 MB | -10% | 110/40 | **4.2 MB** | **-41%** | 219/125 - (1'415/548) |
+| CSV 1M Records | 50.0 MB | 24.9 MB | -50% | 2960/211 | 23.1 MB | -7% | 310/70 |**12.7 MB** | **-45%** | 640/344 - (4'199/1'733) |
+| Binary MySQL Employees exemple | 290 MB | 86.0 MB | -70% | 10'148/952 | 86.5 MB | +0% | 1040/260 |**55.9 MB** | **-35%** | 3'281/2'175 - (18'004/9'042) |
 
-More comparaison with adv. compressor found here : https://www.mattmahoney.net/dc/text.html  (BSC is on line 33)
+** run from .NET - (run from Business Central, adding interop overhead and does not support multithreading neither Cuda)
+
+Additionnal comparaison with advanced compressor can be found here https://www.mattmahoney.net/dc/text.html  (BSC is on line 33)
 
 # Usage
 
