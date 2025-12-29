@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibbscSharp Console Tester", "bsc wrapper console C# test\LibbscSharp Console Tester.csproj", "{C3EFA5DB-5576-46FB-99AD-34095E531AE6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibbscSharp Net Core", "LibbscSharp Net Core\LibbscSharp Net Core.csproj", "{F40A4879-1E49-4E34-90FF-69E33D292ABE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibbscSharp .Net Framework 4.8", "LibbscSharp .Net Framework 4.8\LibbscSharp .Net Framework 4.8.csproj", "{53AD8A7B-2A49-4366-8CCA-3848E4D05E90}"
@@ -14,6 +12,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bscwrapperCLR .NET Framework", "bscwrapperCLR FrameWork 4.8\bscwrapperCLR FrameWork 4.8.vcxproj", "{9D53FD23-1E3B-4878-9F13-7DD8EFA9DBCC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bscwrapperCLR .NET Core", "bscwrapperCLR .Net Core\bscwrapperCLR .NET Core.vcxproj", "{C760B911-24F2-44C0-B877-DC1F5A85804B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibbscSharp Console Tester", "LibbscSharp Console Tester\LibbscSharp Console Tester.csproj", "{4DC1DCC8-099C-46D2-9777-87FE10E07317}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,18 +25,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Debug|x64.Build.0 = Debug|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Debug|x86.Build.0 = Debug|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Release|x64.ActiveCfg = Release|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Release|x64.Build.0 = Release|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Release|x86.ActiveCfg = Release|Any CPU
-		{C3EFA5DB-5576-46FB-99AD-34095E531AE6}.Release|x86.Build.0 = Release|Any CPU
 		{F40A4879-1E49-4E34-90FF-69E33D292ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F40A4879-1E49-4E34-90FF-69E33D292ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F40A4879-1E49-4E34-90FF-69E33D292ABE}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -97,6 +85,18 @@ Global
 		{C760B911-24F2-44C0-B877-DC1F5A85804B}.Release|x64.Build.0 = Release|x64
 		{C760B911-24F2-44C0-B877-DC1F5A85804B}.Release|x86.ActiveCfg = Release|Win32
 		{C760B911-24F2-44C0-B877-DC1F5A85804B}.Release|x86.Build.0 = Release|Win32
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Debug|x64.Build.0 = Debug|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Debug|x86.Build.0 = Debug|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Release|x64.ActiveCfg = Release|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Release|x64.Build.0 = Release|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Release|x86.ActiveCfg = Release|Any CPU
+		{4DC1DCC8-099C-46D2-9777-87FE10E07317}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

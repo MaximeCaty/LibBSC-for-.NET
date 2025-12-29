@@ -33,7 +33,19 @@ typedef struct BSC_BLOCK_HEADER
 } BSC_BLOCK_HEADER;
 
 
-
+/**
+* Compress a stream of data.
+* @param inputStream                        - the input data to compress
+* @param outputStream                       - the output compressed data including global header + blocks headers
+* @param blockSize                          - the maximum block size in Byte to compress sequentially, higher value improve ratio while consuming more RAM. Default if 25 MB.
+* @param NumThreads                         - the number of threads to use if the file is multy-blocks (depend on input size and block size)
+* @param lzpHashSize                        - the hash table size if LZP enabled, 0 otherwise. Must be in range [0, 10..28].
+* @param lzpMinLen                          - the minimum match length if LZP enabled, 0 otherwise. Must be in range [0, 4..255].
+* @param blockSorter                        - the block sorting algorithm. Must be in range [ST3..ST8, BWT].
+* @param coder                              - the entropy coding algorithm. Must be in range 1..3
+* @return 0 if succed, nagative value for error code
+*/
+[SuppressGCTransition]
 int BscDotNet::Compressor::CompressOmp(Stream^ inputStream, Stream^ outputStream, int blockSize, int NumThreads, int lzpHashSize, int lzpMinLen, int blockSorter, int coder)
 {
     // Checks
@@ -89,8 +101,9 @@ int BscDotNet::Compressor::CompressOmp(Stream^ inputStream, Stream^ outputStream
         unsigned char* buffer = pinInput;
         unsigned char* outBuffer = pinOutput;
 
-        int compressedSize = bsc_compress(buffer, outBuffer, currentBlockSize, lzpHashSize, lzpMinLen, blockSorter, coder, features);            
-        // Store error
+        unsigned char* compressPtr = outBuffer + 10;  // leave 10-byte gap for block header
+        // Compress
+        int compressedSize = bsc_compress(buffer, compressPtr, currentBlockSize + 10, lzpHashSize, lzpMinLen, blockSorter, coder, features);
         if (compressedSize < 0)
         {
             if (compressionError == LIBBSC_NO_ERROR)
@@ -98,17 +111,22 @@ int BscDotNet::Compressor::CompressOmp(Stream^ inputStream, Stream^ outputStream
             break;
         }
 
-        // Write
+        // Now write header at start
+        unsigned char* headerPtr = outBuffer;
+        uint64_t offset64 = blockOffset;  // assuming blockOffset is uint64_t
+        std::memcpy(headerPtr + 0, &offset64, 8);
+        headerPtr[8] = (unsigned char)recordSize;
+        headerPtr[9] = (unsigned char)sortingContexts;
+
+        // Then write the whole thing in one go
 #pragma omp critical(output_stream)
         {
-            // Même code optimisé d'écriture avec finalBlock
-            array<Byte>^ finalBlock = gcnew array<Byte>(10 + compressedSize);
-            array<Byte>^ offsetBytes = BitConverter::GetBytes(blockOffset);
-            Array::Copy(offsetBytes, 0, finalBlock, 0, 8);
-            finalBlock[8] = (Byte)recordSize;
-            finalBlock[9] = (Byte)sortingContexts;
-            Marshal::Copy(IntPtr(outBuffer), finalBlock, 10, compressedSize);
-            outputStream->Write(finalBlock, 0, 10 + compressedSize);
+            // If outputStream is System::IO::Stream^ (managed)
+            // Pin the native buffer and write
+            pin_ptr<unsigned char> pinned = &outBuffer[0];
+            array<Byte>^ managedWrapper = gcnew array<Byte>(10 + compressedSize);
+            Marshal::Copy(IntPtr(pinned), managedWrapper, 0, 10 + compressedSize);
+            outputStream->Write(managedWrapper, 0, 10 + compressedSize);
         }
     }
     if (compressionError != LIBBSC_NO_ERROR)
@@ -116,7 +134,14 @@ int BscDotNet::Compressor::CompressOmp(Stream^ inputStream, Stream^ outputStream
     return LIBBSC_NO_ERROR;
 }
 
-
+/**
+* Decompress a stream of data.
+* @param inputStream                        - the compressed input data
+* @param outputStream                       - the output decompressed data result
+* @param numThreads                         - the number of threads to use if the file is multy-blocks
+* @return 0 if succed, nagative value for error code
+*/
+[SuppressGCTransition]
 int BscDotNet::Compressor::DecompressOmp(Stream^ inputStream, Stream^ outputStream, int numThreads)
 {
     if (inputStream == nullptr || outputStream == nullptr)

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LibbscSharp Net Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c1cf9305124e4406b44ff044bd5666f5c044e407")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+714f5498e8d39934b67fb9054e9e7e7c95d26a6e")]
 [assembly: System.Reflection.AssemblyProductAttribute("LibbscSharp Net Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LibbscSharp Net Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

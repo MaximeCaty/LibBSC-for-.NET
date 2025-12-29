@@ -33,7 +33,6 @@ typedef struct BSC_BLOCK_HEADER
 } BSC_BLOCK_HEADER;
 
 
-
 int BscDotNet::Compressor::CompressOmp(Stream^ inputStream, Stream^ outputStream, int blockSize, int NumThreads, int lzpHashSize, int lzpMinLen, int blockSorter, int coder)
 {
     // Checks
@@ -89,7 +88,36 @@ int BscDotNet::Compressor::CompressOmp(Stream^ inputStream, Stream^ outputStream
         unsigned char* buffer = pinInput;
         unsigned char* outBuffer = pinOutput;
 
-        int compressedSize = bsc_compress(buffer, outBuffer, currentBlockSize, lzpHashSize, lzpMinLen, blockSorter, coder, features);            
+        unsigned char* compressPtr = outBuffer + 10;  // leave 10-byte gap
+        // Compress
+        int compressedSize = bsc_compress(buffer, compressPtr, currentBlockSize + 10, lzpHashSize, lzpMinLen, blockSorter, coder, features);
+        if (compressedSize < 0)
+        {
+            if (compressionError == LIBBSC_NO_ERROR)
+                compressionError = compressedSize;
+            break;
+        }
+        // Now write header at start
+        unsigned char* headerPtr = outBuffer;
+
+        uint64_t offset64 = blockOffset;  // assuming blockOffset is uint64_t
+        std::memcpy(headerPtr + 0, &offset64, 8);
+
+        headerPtr[8] = (unsigned char)recordSize;
+        headerPtr[9] = (unsigned char)sortingContexts;
+
+        // Then write the whole thing in one go
+#pragma omp critical(output_stream)
+        {
+            // If outputStream is System::IO::Stream^ (managed)
+            // Pin the native buffer and write
+            pin_ptr<unsigned char> pinned = &outBuffer[0];
+            array<Byte>^ managedWrapper = gcnew array<Byte>(10 + compressedSize);
+            Marshal::Copy(IntPtr(pinned), managedWrapper, 0, 10 + compressedSize);
+            outputStream->Write(managedWrapper, 0, 10 + compressedSize);
+        }
+
+        /*int compressedSize = bsc_compress(buffer, outBuffer, currentBlockSize, lzpHashSize, lzpMinLen, blockSorter, coder, features);
         // Store error
         if (compressedSize < 0)
         {
@@ -109,7 +137,7 @@ int BscDotNet::Compressor::CompressOmp(Stream^ inputStream, Stream^ outputStream
             finalBlock[9] = (Byte)sortingContexts;
             Marshal::Copy(IntPtr(outBuffer), finalBlock, 10, compressedSize);
             outputStream->Write(finalBlock, 0, 10 + compressedSize);
-        }
+        }*/
     }
     if (compressionError != LIBBSC_NO_ERROR)
         return compressionError;

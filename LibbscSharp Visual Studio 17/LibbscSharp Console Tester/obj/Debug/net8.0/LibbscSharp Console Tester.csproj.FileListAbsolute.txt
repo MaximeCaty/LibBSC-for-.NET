@@ -1,0 +1,20 @@
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\bin\Debug\net8.0\Ijwhost.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\bin\Debug\net8.0\LibbscSharp Console Tester.exe
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\bin\Debug\net8.0\LibbscSharp Console Tester.deps.json
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\bin\Debug\net8.0\LibbscSharp Console Tester.runtimeconfig.json
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\bin\Debug\net8.0\LibbscSharp Console Tester.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\bin\Debug\net8.0\LibbscSharp Console Tester.pdb
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\bin\Debug\net8.0\bscwrapperCLR .NET Core.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\bin\Debug\net8.0\bscwrapperCLR .NET Core.pdb
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\LibbscSharp Console Tester.csproj.AssemblyReference.cache
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\LibbscSharp Console Tester.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\LibbscSharp Console Tester.AssemblyInfoInputs.cache
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\LibbscSharp Console Tester.AssemblyInfo.cs
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\LibbscSharp Console Tester.csproj.CoreCompileInputs.cache
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\LibbscSharp Console Tester.sourcelink.json
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\LibbscSh.CCF930AA.Up2Date
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\LibbscSharp Console Tester.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\refint\LibbscSharp Console Tester.dll
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\LibbscSharp Console Tester.pdb
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\LibbscSharp Console Tester.genruntimeconfig.cache
+C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\LibbscSharp Console Tester\obj\Debug\net8.0\ref\LibbscSharp Console Tester.dll
