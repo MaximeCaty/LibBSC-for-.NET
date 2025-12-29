@@ -33,7 +33,7 @@ Expect **30–50% additional size reduction** than Gzip or Zstandard on suitable
 
 I've seen **over 98% reduction** on highly structured numerical datasets at level 3 🔥
 
-**Note:** Running via Azure Functions or Business Central introduces some overhead (interop + data transfer), reducing raw speed.
+**Note:** Running via Azure Functions or Business Central introduces overhead (interop + data transfer), reducing raw speed. Default Azure plan does not support multithread, neither interop from Business Central.
 
 ### Benchmarks
 
