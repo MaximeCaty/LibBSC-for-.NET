@@ -15,10 +15,13 @@ File produced are compatible with original command line tool (bsc.exe).
 ## What is BSC
 
 Block sorting compression is an alternative compression method achieving much higher compression than dictionnary methods (such as Gzip, 7z, even zStandard) on some data format.
-Ilya implemented a high performance version of BSC in C/C++.
+Comparably to other heavier compression like Bzip2 and Brotli, BSC offer both faster speed and better compression.
 
 
-It excel on reducing size of raw "industrial" files with repeatable content and structured format like :
+Ilya implemented a high performance version of BSC in C/C++ supporting multhread and Cuda acceleration.
+
+
+It excel on reducing size of raw files with repeatable content and structured format like :
  - CSV, Flat, Excel, Json, Xml files 
  - Database Dump 
  - Binary table datas (row or column
@@ -27,16 +30,19 @@ It excel on reducing size of raw "industrial" files with repeatable content and 
 It doesnt compete well :
  - Already encoded media such as JPG, PNG, GIF, MP3, ...
  - Smaller files (< 100 KB)
+ - already compressed file
 
 ### Performance
 
-You can expect 40% more reduction than using gzip or zstandard, for a cost of ~ 1.5 - 3x process time on fastest level.
+You can expect 40% additionnal reduction than gzip or zstandard, for a cost of ~ 1.5 - 3x process time on fastest level.
 
-I experienced some file with over 98% reduction when structured with highly repeatable numerical values and using level 3/3.
+The process time may be further reduce on larger file using multihreading.
 
-Important note : running through Azure function or Busienss Central seem to cause significant speed degradation, likely due to interop overhead + http data transfer.
+I experienced on some file over 98% reduction when data is structured with highly repeatable numerical values at level 3.
 
-### Comparisons
+Important note : running through Azure function or Busienss Central cause speed degradation likely due to interop overhead and http data transfer.
+
+### Benchmark
 
 - Gzip : Optimal level (6/9)
 - ZStandard : Fast level (3/19)
@@ -51,7 +57,9 @@ Setup : i7 12700KF - 32GB DDR5 running single threaded, no GPU acceleration.
 | CSV 1M Records | 50.0 MB | 24.9 MB | -50% | 2960/211 | 23.1 MB | -7% | 310/70 |**12.7 MB** | **-45%** | 640/344 - (4'199/1'733) |
 | Binary MySQL Employees exemple | 290 MB | 86.0 MB | -70% | 10'148/952 | 86.5 MB | no gain | 1040/260 |**55.9 MB** | **-35%** | 3'281/2'175 - (18'004/9'042) |
 
-** run from .NET - (run from Business Central, with interop overhead)
+*Time expressed in milliseconds for Compression/Decompression
+
+**Run from .NET - (Run from Business Central, interop overhead)
 
 Additionnal comparaison with advanced compressor can be found here https://www.mattmahoney.net/dc/text.html  (BSC is on line 33)
 
@@ -61,14 +69,14 @@ Additionnal comparaison with advanced compressor can be found here https://www.m
 
 ## DotNet
     
-Add in your project a reference to "bscwrapperCLR .NET Core" or "bscwrapperCLR .NET FrameWork".
+Add in to your project a reference to "bscwrapperCLR .NET Core" or "bscwrapperCLR .NET FrameWork".
 
 Use **CompressOmp** to compress a stream of data
  
 - @param inputStream                        - the input data to compress
 - @param outputStream                       - the output compressed data including global header + blocks headers
 - @param blockSize                          - the maximum block size in Byte to compress sequentially, higher value improve ratio while consuming more RAM. Default if 25 MB.
-- @param NumThreads                         - the number of threads to use if the file is multy-blocks (depend on input size and block size)
+- @param NumThreads                         - the number of threads to use if the file is multy-blocks (depend on input size and block size), 0 for auto detect.
 - @param lzpHashSize                        - the hash table size if LZP enabled, 0 otherwise. Must be in range [0, 10..28].
 - @param lzpMinLen                          - the minimum match length if LZP enabled, 0 otherwise. Must be in range [0, 4..255].
 - @param blockSorter                        - the block sorting algorithm. Must be in range [ST3..ST8, BWT].
@@ -78,7 +86,7 @@ Use **CompressOmp** to compress a stream of data
 Use **DecompressOmp** to decompress a stream of BSC data
 - @param inputStream                        - the compressed input data
 - @param outputStream                       - the output decompressed data result
-- @param numThreads                         - the number of threads to use if the file is multy-blocks
+- @param numThreads                         - the number of threads to use if the file is multy-blocks, 0 for auto detect
 - @return 0 if succed, nagative value for error code
 
      
@@ -95,12 +103,12 @@ Use **DecompressOmp** to decompress a stream of BSC data
 8. Create an API Key for your Azure Function under Functions -> Application Key
 9. When calling the API, add an Http header "x-functions-key" with the key as value.
 
-Publication issue : 
+> Publication issue : 
 Default Azure Function plan as per Dec.2025 (Flexible) run on Linux. 
 Make sure to select a plan that support Windows (i.e. "Consumption").
 
-Runtime dependency issue :
-If you modify other project, you must copy the DLL manualy under the libs folder, and verify that the DLLs are copied when publishing : open "LibbscSharp AZ Function.csproj" and check for presence of 
+> Runtime dependency issue :
+If you modify the CLR project, you must copy the compiled DLLs manualy under the libs folder, and verify that the DLLs are copied when publishing : open "LibbscSharp AZ Function.csproj" and check for presence of 
 
     <None Update="lib/bscwrapperCLR .NET Core.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -115,7 +123,7 @@ If you modify other project, you must copy the DLL manualy under the libs folder
 
 Compress/Decompress API support gzipped payload (Content-Encoding/Accept-encoding).
 
-It reduce network load but slow down the process by 10-15%, so I'd recommand to only use it with fastest gzip level or when bandwidth is critical.
+It reduce network load but slow down the process by 10-15%, so I won't recommand to use it unledd network load is critical.
 
 ### Ping
 Use this function to verify you are able to reach the Azure Function.
