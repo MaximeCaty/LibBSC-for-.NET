@@ -1,0 +1,33 @@
+{
+  "id": "d8321ddc-c3c2-4f31-ba67-f3718f3b7626",
+  "name": "Libbsc Compression App",
+  "publisher": "Maxime Caty",
+  "version": "1.0.0.0",
+  "brief": "Provide Block sorting compression codeunit and test page.",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "26.0.0.0",
+  "target": "OnPrem",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+    "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "15.0",
+  "features": [
+    "NoImplicitWith"
+  ]
+}
