@@ -1,0 +1,6 @@
+﻿################################################################################
+# Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
+################################################################################
+
+/LibbscSharp Visual Studio 17/.vs/LibbscSharp/v17/Browse.VC.db
+/LibbscSharp Visual Studio 17/.vs/LibbscSharp/v17/Browse.VC.db-wal
