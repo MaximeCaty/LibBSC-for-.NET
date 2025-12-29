@@ -1,54 +1,47 @@
 
-
 # LibBSC Sharp
 
-.NET Portage of the fine "Block Sorting Compression" library by Ilya Grebnov : https://github.com/IlyaGrebnov/libbsc
+**.NET port** of the excellent **Block Sorting Compression** library by Ilya Grebnov: [https://github.com/IlyaGrebnov/libbsc](https://github.com/IlyaGrebnov/libbsc?referrer=grok.com)
 
-- .NET Core 8.0
-- .NET Framework 4.8
-- Azure Function with HTTP trigger for cloud usage
-- Microsoft Dynamics Business Central Extension exemple
+-   Targets **.NET 8** and **.NET Framework 4.8**
+-   Include **Azure Function** with HTTP trigger for cloud deployment
+-   Include **Microsoft Dynamics Business Central** extension example
 
+Files produced are compatible with the original command-line tool (bsc.exe).
 
-File produced are compatible with original command line tool (bsc.exe).
+## What is BSC?
 
-## What is BSC
+Block Sorting Compression (**BSC**) is a powerful alternative to dictionary-based methods. It often achieves significantly better compression than **Gzip**, **Zstandard**, or even **7-Zip** on certain data types — especially structured, repetitive content.
 
-Block sorting compression is an alternative compression method achieving much higher compression than dictionnary methods (such as Gzip, 7z, even zStandard) on some data format.
-Comparably to other heavier compression like Bzip2 and Brotli, BSC offer both faster speed and better compression.
+Compared to similar high-ratio compressors like **Bzip2** or **Brotli**, BSC delivers **superior compression ratios** while maintaining **faster speeds**. Ilya Grebnov's implementation is highly optimized, supporting multithreading and even CUDA acceleration for GPU boosts.
 
+It excels on:
 
-Ilya implemented a high performance version of BSC in C/C++ supporting multhread and Cuda acceleration.
+-   CSV, flat files, Excel exports, JSON, XML
+-   Database dumps and backups
+-   Binary tabular data (row- or column-oriented)
 
+It performs less effectively on:
 
-It excel on reducing size of raw files with repeatable content and structured format like :
- - CSV, Flat, Excel, Json, Xml files 
- - Database Dump 
- - Binary table datas (row or column
-   oriented)
+-   Already-encoded media (JPG, PNG, GIF, MP3, etc.)
+-   Very small files (< 100 KB)
+-   Useless on pre-compressed data
 
-It doesnt compete well :
- - Already encoded media such as JPG, PNG, GIF, MP3, ...
- - Smaller files (< 100 KB)
- - already compressed file
+### Performance Highlights
 
-### Performance
+Expect **30–50% additional size reduction** than Gzip or Zstandard on suitable data, at the cost of roughly **1.5–3× processing time** on the fastest level. Multithreading can dramatically reduce times on larger files.
 
-You can expect 40% additionnal reduction than gzip or zstandard, for a cost of ~ 1.5 - 3x process time on fastest level.
+I've seen **over 98% reduction** on highly structured numerical datasets at level 3 🔥
 
-The process time may be further reduce on larger file using multihreading.
+**Note:** Running via Azure Functions or Business Central introduces some overhead (interop + data transfer), reducing raw speed.
 
-I experienced on some file over 98% reduction when data is structured with highly repeatable numerical values at level 3.
+### Benchmarks
 
-Important note : running through Azure function or Busienss Central cause speed degradation likely due to interop overhead and http data transfer.
+-   **Gzip**: level 6/9 (optimal)
+-   **Zstandard**: level 3/19 (very-fast)
+-   **BSC**: level 1/3 (fast)
 
-### Benchmark
-
-- Gzip : Optimal level (6/9)
-- ZStandard : Fast level (3/19)
-- BSC : Fast level (1/3)
-
-Setup : i7 12700KF - 32GB DDR5 running single threaded, no GPU acceleration.
+Hardware: Intel i7-12700KF, 32 GB DDR5, single-threaded no GPU acceleration.
 
 | File | Size | GZ | % | Time | ZStd | % (cumulative) | Time | BSC | % (cumulative) | Time** |
 |--|--|--|--|--|--|--|--|--|--|--|
@@ -57,183 +50,150 @@ Setup : i7 12700KF - 32GB DDR5 running single threaded, no GPU acceleration.
 | CSV 1M Records | 50.0 MB | 24.9 MB | -50% | 2960/211 | 23.1 MB | -7% | 310/70 |**12.7 MB** | **-45%** | 640/344 - (4'199/1'733) |
 | Binary MySQL Employees exemple | 290 MB | 86.0 MB | -70% | 10'148/952 | 86.5 MB | no gain | 1040/260 |**55.9 MB** | **-35%** | 3'281/2'175 - (18'004/9'042) |
 
-*Time expressed in milliseconds for Compression/Decompression
 
-**Run from .NET - (Run from Business Central, interop overhead)
+*Times in milliseconds (Compression / Decompression) 
+**Direct .NET run – (Business Central interop overhead)
 
-Additionnal comparaison with advanced compressor can be found here https://www.mattmahoney.net/dc/text.html  (BSC is on line 33)
+For broader comparisons with top-tier compressors, see line 33in the Large Text Compression Benchmark: [https://www.mattmahoney.net/dc/text.html](https://www.mattmahoney.net/dc/text.html?referrer=grok.com)
 
-----
+----------
 
 # Usage
 
-## DotNet
-    
-Add in to your project a reference to "bscwrapperCLR .NET Core" or "bscwrapperCLR .NET FrameWork".
+## .NET Integration
 
-Use **CompressOmp** to compress a stream of data
- 
-- @param inputStream                        - the input data to compress
-- @param outputStream                       - the output compressed data including global header + blocks headers
-- @param blockSize                          - the maximum block size in Byte to compress sequentially, higher value improve ratio while consuming more RAM. Default if 25 MB.
-- @param NumThreads                         - the number of threads to use if the file is multy-blocks (depend on input size and block size), 0 for auto detect.
-- @param lzpHashSize                        - the hash table size if LZP enabled, 0 otherwise. Must be in range [0, 10..28].
-- @param lzpMinLen                          - the minimum match length if LZP enabled, 0 otherwise. Must be in range [0, 4..255].
-- @param blockSorter                        - the block sorting algorithm. Must be in range [ST3..ST8, BWT].
-- @param coder                              - the entropy coding algorithm. Must be in range 1..3
-- @return 0 if succed, nagative value for error code
-
-Use **DecompressOmp** to decompress a stream of BSC data
-- @param inputStream                        - the compressed input data
-- @param outputStream                       - the output decompressed data result
-- @param numThreads                         - the number of threads to use if the file is multy-blocks, 0 for auto detect
-- @return 0 if succed, nagative value for error code
-
-     
-## Azure function
-
-### Publish Azure Function
-
-1. Create a new Azure your function from Azure portal. 
-    It must be using **windows** operating system and **target .NET Core 8.0**
-3. Use the project "LibbscSharp AZ Function" included in the repo folder "LibbscSharp Visual Studio 17".
-4. Create a publication Profile to your Azure account, and create a new function / group
-6. Publish the project from Visual Studio
-7. Find the URL from your Azure dash board -> Azure function -> Overview -> "Default Domain"
-8. Create an API Key for your Azure Function under Functions -> Application Key
-9. When calling the API, add an Http header "x-functions-key" with the key as value.
-
-> Publication issue : 
-Default Azure Function plan as per Dec.2025 (Flexible) run on Linux. 
-Make sure to select a plan that support Windows (i.e. "Consumption").
-
-> Runtime dependency issue :
-If you modify the CLR project, you must copy the compiled DLLs manualy under the libs folder, and verify that the DLLs are copied when publishing : open "LibbscSharp AZ Function.csproj" and check for presence of 
-
-    <None Update="lib/bscwrapperCLR .NET Core.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-    </None>
-    <None Update="lib/Ijwhost.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-    </None>
-
-### API transfers compression
-
-Compress/Decompress API support gzipped payload (Content-Encoding/Accept-encoding).
-
-It reduce network load but slow down the process by 10-15%, so I won't recommand to use it unledd network load is critical.
-
-### Ping
-Use this function to verify you are able to reach the Azure Function.
-
-GET url/api/PING
+Add a project reference to **bscwrapperCLR .NET 8** or **bscwrapperCLR .NET Framework**.
 
 
-### Compress trigger
 
-POST url/api/COMPRESS?coder=0&blocksize=50
- - (Mandatory parameter) coder : Compression level 1 (fast), 2 (medium), 3 (high). Default is fast.
- - (Optional parameter) blocksize : Block size in MegaBytes. Default is 25 MB.
- - Body : Raw input data to compress, can be Gzipped to speed up transfer (provide header "Content-encoding: gz")
- - Response : Compressed data using Libbsc, or error code
+**CompressOmp** Compresses a data stream.
 
-### Decompress trigger
+Parameters:
 
-POST url/api/DECOMPRESS
-- No parmeters
-- Body : Compressed payload to decompress
-- Response : Decompressed data, or error code. Can be returned Gzipped to speed up transfer (provide header "Accept-encoding: gz")
+-   inputStream: Source data
+-   outputStream: Destination (includes headers)
+-   blockSize: Max block size in bytes (larger → better ratio, more RAM). Default: 25 MB
+-   numThreads: Threads for multi-block files (0 = auto)
+-   lzpHashSize: Hash table size for LZP (0 = disabled, 10–28)
+-   lzpMinLen: Min match length for LZP (0 = disabled, 4–255)
+-   blockSorter: Sorting algorithm (ST3..ST8 or BWT)
+-   coder: Entropy coder (1–3)
 
-## Business Central Cloud
+Returns: 0 on success or negative error code.
 
-Publish Azure function as above and run function with AL Http client.
+**DecompressOmp** Decompresses a BSC stream.
 
-The repo extension provide an exemple to do this.
+Parameters:
 
->
-    var
-        BSCCompression: Codeunit "BSC Data Compression";
-    begin
-        // Compress
-        BSCCompression.AzureLibbscCompress(URL, Key, InputStrToCompress, CompOutStr, 1);
-        // Decompress
-        BSCCompression.AzureLibbscDecompress(URL, Key, CompInStr, DecompOutStr);
+-   inputStream: Compressed data
+-   outputStream: Decompressed result
+-   numThreads: Threads (0 = auto)
 
-## Business Central On Premise
+Returns: 0 on success or negative error code.
 
-You can use provided exemple in the repo or use the DLL manualy as following :
+## Azure Function
 
-1. Copy DLLs in your extension under .netpackages folder + in Addin folder of Business central server instance.
+### Deployment Steps
 
-Business Central V23+ :
-- bscwrapperCLR .NET Core.dll
-- Ijwhost.dll
-- LibbscSharp Net Core.dll
+1.  Create an Azure Function App (Windows OS, .NET 8 runtime).
+2.  Use the **LibbscSharp AZ Function** project from the repo.
+3.  Create a publish profile in Visual Studio and deploy.
+4.  Get the base URL from Azure portal > Function App > Overview.
+5.  Create an API key (Functions > App keys).
 
-For older BC / Nav version, use .Net Framework version :
-- bscwrapperCLR .NET Framework.dll
-- LibbscShartp.Net_Framework_4._8.dll
-----
+**Auth:** Always include header "x-functions-key: your-key" in API calls.
 
-2. Restart Business Central service Instance along with VS Code (so they fetch available DLLs)
-----
-3. In your extension, declare the assembly 
+> **Note (Dec 2025):** Default flexible plans run on Linux. Choose a **Consumption** plan for Windows support.
 
-        
-        dotnet { 
-          assembly("LibbscSharp Net Core") 
-          { 
-            type(LibbscSharp.LibscSharp; LibbscSharp) { } 
-          } 
-          // For older BC/NAV Version use the .Net Framework 4.8 version :
-          //assembly(LibbscShartp.Net_Framework_4._8) 
-          //{ //type(LibbscSharp.LibscSharp; LibbscSharp) { } 
-          //} 
-        }
-        
-----
-4. Use the library from AL language to compress or decompress data :
+> **Dependency fix:** If rebuilding the wrapper, manually copy compiled DLLs to the lib folder and ensure they're set to "Copy Always" in the .csproj.
 
->
-    var
-        Libbsc: Dotnet  LibbscSharp;
-    begin
-        // You must instanciate the static class
-        Libbsc  :=  Libbsc.LibscSharp();
-        // Compress
-        Libbsc.BSCCompress(InputStreamToCompress, CompressedOutStream, 0, 0, 100  *  1024  *  1024);
-        // Decompress
-        Libbsc.BSCDecompress(CompInStr, DecompOutStr, 0);
+### API Compression Handling
 
-5. Or with provided codeunit
+Both endpoints support gzip payloads (Content-Encoding: gzip for input, Accept-Encoding: gzip for output). This reduces transfer size but adds ~10–15% processing time — use only when network bandwidth is the bottleneck.
 
->
-    var
-        BSCCompression: Codeunit "BSC Data Compression";
-    begin
-        // Compress
-        BSCCompression.Compress(InputStrToCompress, CompOutStr, 1);
-        // Decompress
-        BSCCompression.Decompress(CompInStr, DecompOutStr);
+### Endpoints
 
-## Error Code List
+-   **Ping** → GET /api/PING (test connectivity)
+-   **Compress** → POST /api/COMPRESS?coder=1&blocksize=25
+    -   coder (required): 1 (fast), 2 (medium), 3 (high)
+    -   blocksize (optional): In MB. Default: 25
+    -   Body: Raw data (optionally gzipped)
+    -   Response: BSC-compressed data
+-   **Decompress** → POST /api/DECOMPRESS
+    -   Body: BSC-compressed data
+    -   Response: Decompressed data (optionally gzipped if requested)
 
-Error From Libbsc
+## Business Central (Cloud)
 
- - -1 : LIBBSC_BAD_PARAMETER
- - -2 : LIBBSC_NOT_ENOUGH_MEMORY 
- - -3 : LIBBSC_NOT_COMPRESSIBLE
- - -4 : LIBBSC_NOT_SUPPORTED
- - -5 : LIBBSC_UNEXPECTED_EOB
- - -6 : LIBBSC_DATA_CORRUPT
- - -7 : LIBBSC_GPU_ERROR 
- - -8 : LIBBSC_GPU_NOT_SUPPORTED
- - -9 : LIBBSC_GPU_NOT_ENOUGH_MEMORY
+Deploy the Azure Function as above, then call from AL:
 
-Error from the C++ CLR Wrapper
 
- - -20 : LIBBSC_COMPLVL_OUTRANGE
- - -21 : LIBBSC_BAD_PARAM
- - -23 : LIBBSC_NOT_SEEKABLE
+    var 
+        BSCCompression: Codeunit "BSC Data Compression"; 
+    begin 
+        // Compress 
+        BSCCompression.AzureLibbscCompress(URL, Key, InputStr, CompressedStr, 1);
+        BSCCompression.AzureLibbscDecompress(URL, Key, CompressedStr, OutputStr);
+
+The repo includes a full extension example.
+
+## Business Central (On-Premise)
+
+1.  Copy required DLLs:
+    -   BC V23+: To extension .netpackages folder + server Add-ins folder
+        -   bscwrapperCLR .NET 8.dll
+        -   Ijwhost.dll
+        -   LibbscSharp Net Core.dll
+    -   Older versions: Use .NET Framework equivalents
+2.  Restart BC service and VS Code.
+3.  Declare assembly in app.json:
+
+JSON
+
+```
+dotnet {
+  assembly("LibbscSharp Net Core") {
+    type("LibbscSharp.LibscSharp", "LibbscSharp") { }
+  }
+}
+```
+
+4.  Use directly or via helper codeunit:
+```
+var 
+    Libbsc: DotNet LibbscSharp; 
+begin 
+    Libbsc := Libbsc.LibscSharp(); // Compress (example params) 
+    Libbsc.BSCCompress(InputStream, OutputStream, 0, 0, 100 * 1024 * 1024); // Decompress
+    Libbsc.BSCDecompress(InputStream, OutputStream, 0); end;
+```
+
+Or with the helper codeunit:
+
+```
+var 
+    BSCCompression: Codeunit "BSC Data Compression"; 
+begin 
+    BSCCompression.Compress(InputStr, CompressedStr, 1); 
+    BSCCompression.Decompress(CompressedStr, OutputStr);
+```
+
+## Error Codes
+
+**From libbsc:**
+
+-   -1: LIBBSC_BAD_PARAMETER
+-   -2: LIBBSC_NOT_ENOUGH_MEMORY
+-   -3: LIBBSC_NOT_COMPRESSIBLE
+-   -4: LIBBSC_NOT_SUPPORTED
+-   -5: LIBBSC_UNEXPECTED_EOB
+-   -6: LIBBSC_DATA_CORRUPT
+-   -7: LIBBSC_GPU_ERROR
+-   -8: LIBBSC_GPU_NOT_SUPPORTED
+-   -9: LIBBSC_GPU_NOT_ENOUGH_MEMORY
+
+**From CLR wrapper:**
+
+-   -20: LIBBSC_COMPLVL_OUTRANGE
+-   -21: LIBBSC_BAD_PARAM
+-   -23: LIBBSC_NOT_SEEKABLE
