@@ -38,8 +38,8 @@ Important note : running through Azure function or Busienss Central seem to caus
 
 ### Comparisons
 
-- Gzip : Fast level (2/9)
-- ZStandard : Very-Fast level (3/19)
+- Gzip : Optimal level (6/9)
+- ZStandard : Fast level (3/19)
 - BSC : Fast level (1/3)
 
 Setup : i7 12700KF - 32GB DDR5 running single threaded, no GPU acceleration.
@@ -99,7 +99,7 @@ Publication issue :
 Default Azure Function plan as per Dec.2025 (Flexible) run on Linux. 
 Make sure to select a plan that support Windows (i.e. "Consumption").
 
-Dependency issue (runtime) :
+Runtime dependency issue :
 If you modify other project, you must copy the DLL manualy under the libs folder, and verify that the DLLs are copied when publishing : open "LibbscSharp AZ Function.csproj" and check for presence of 
 
     <None Update="lib/bscwrapperCLR .NET Core.dll">
@@ -111,6 +111,12 @@ If you modify other project, you must copy the DLL manualy under the libs folder
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </None>
 
+### API transfers compression
+
+Compress/Decompress API support gzipped payload (Content-Encoding/Accept-encoding).
+
+It reduce network load but slow down the process by 10-15%, so I'd recommand to only use it with fastest gzip level or when bandwidth is critical.
+
 ### Ping
 Use this function to verify you are able to reach the Azure Function.
 
@@ -120,23 +126,32 @@ GET url/api/PING
 ### Compress trigger
 
 POST url/api/COMPRESS?coder=0&blocksize=50
- - (Optional parameter) coder : Compression level 1 (fast), 2 (medium), 3 (high). Default is fast.
+ - (Mandatory parameter) coder : Compression level 1 (fast), 2 (medium), 3 (high). Default is fast.
  - (Optional parameter) blocksize : Block size in MegaBytes. Default is 25 MB.
- - Body : Raw input data to compress
- - Response : Compressed data, or error code
+ - Body : Raw input data to compress, can be Gzipped to speed up transfer (provide header "Content-encoding: gz")
+ - Response : Compressed data using Libbsc, or error code
 
 ### Decompress trigger
 
 POST url/api/DECOMPRESS
 - No parmeters
 - Body : Compressed payload to decompress
-- Response : Decompressed data, or error code
+- Response : Decompressed data, or error code. Can be returned Gzipped to speed up transfer (provide header "Accept-encoding: gz")
 
 ## Business Central Cloud
 
 Publish Azure function as above and run function with AL Http client.
 
 The repo extension provide an exemple to do this.
+
+>
+    var
+        BSCCompression: Codeunit "BSC Data Compression";
+    begin
+        // Compress
+        BSCCompression.AzureLibbscCompress(URL, Key, InputStrToCompress, CompOutStr, 1);
+        // Decompress
+        BSCCompression.AzureLibbscDecompress(URL, Key, CompInStr, DecompOutStr);
 
 ## Business Central On Premise
 
