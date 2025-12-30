@@ -33,7 +33,7 @@ Expect **30–50% additional size reduction** than Gzip or Zstandard on suitable
 
 I've seen **over 98% reduction** on highly structured numerical datasets at level 3 🔥
 
-**Note:** Running via Azure Functions or Business Central introduces overhead (interop + data transfer), reducing raw speed. Default Azure plan does not support multithread, neither interop from Business Central.
+**Note:** Running via Azure Functions add the http transfer overher, in Business Central OnPrem also add inerop overhead and does not support multithread, reducing raw speed. Default Azure Function plan offer only 1 core.
 
 ### Benchmarks
 
@@ -47,8 +47,8 @@ Hardware: Intel i7-12700KF, 32 GB DDR5, single-threaded no GPU acceleration.
 |--|--|--|--|--|--|--|--|--|--|--|
 | Json Exemple | 500 KB | 37 KB | -93% | 7/1 | 50 KB | no gain | 30/10 | **20 KB** | **-46%** | 16/0 - (44/16) |
 | CSV 100K Records | 16.5 MB | 7.9 MB | -52% | 780/71 | 7.1 MB | -10% | 110/40 | **4.2 MB** | **-41%** | 219/125 - (1'415/548) |
-| CSV 1M Records | 50.0 MB | 24.9 MB | -50% | 2960/211 | 23.1 MB | -7% | 310/70 |**12.7 MB** | **-45%** | 640/344 - (4'199/1'733) |
-| Binary MySQL Employees exemple | 290 MB | 86.0 MB | -70% | 10'148/952 | 86.5 MB | no gain | 1040/260 |**55.9 MB** | **-35%** | 3'281/2'175 - (18'004/9'042) |
+| CSV 1M Records | 50.0 MB | 24.9 MB | -50% | 2960/211 | 23.1 MB | -7% | 310/70 |**12.7 MB** | **-45%** | 640/344 - (4'199/1'656) |
+| Binary MySQL Employees exemple | 290 MB | 86.0 MB | -70% | 10'148/952 | 86.5 MB | no gain | 1040/260 |**55.9 MB** | **-35%** | 3'281/2'175 - (18'004/8'062) |
 
 
 *Times in milliseconds (Compression / Decompression) 
@@ -72,7 +72,7 @@ Parameters:
 
 -   inputStream: Source data
 -   outputStream: Destination (includes headers)
--   blockSize: Max block size in bytes (larger → better ratio, more RAM). Default: 25 MB
+-   blockSize: Max block size in bytes (larger → better ratio, more RAM). Default: 25 MB. RAM consumption ~5x block size.
 -   numThreads: Threads for multi-block files (0 = auto)
 -   lzpHashSize: Hash table size for LZP (0 = disabled, 10–28)
 -   lzpMinLen: Min match length for LZP (0 = disabled, 4–255)
