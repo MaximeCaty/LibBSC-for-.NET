@@ -1,7 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using BscDotNet;
+﻿using System.Diagnostics;
+using LibbscSharp;
 
 class Program
 {
@@ -28,7 +26,7 @@ class Program
             using (var inputStream = new FileStream(inputPath, FileMode.Open, FileAccess.Read))
             using (var outputStream = new FileStream(compressedPath, FileMode.Create, FileAccess.Write))
             {
-                int result = BscDotNet.Compressor.CompressOmp(inputStream, outputStream, 25 * 1024 * 1024, 0, 0, 0, 1, 1);
+                int result = LibscSharp.BSCCompress(inputStream, outputStream, 1, 0, 25 * 1024 * 1024);
                 if (result < 0)
                 {
                     Console.WriteLine($"Compression failed with code: {result}");
@@ -65,7 +63,7 @@ class Program
             using (var inputStream = new FileStream(decompressInput, FileMode.Open, FileAccess.Read))
             using (var outputStream = new FileStream(decompressedPath, FileMode.Create, FileAccess.Write))
             {
-                int result = Compressor.DecompressOmp(inputStream, outputStream, 0);
+                int result = LibscSharp.BSCDecompress(inputStream, outputStream, 0);
                 if (result < 0)
                 {
                     Console.WriteLine($"Decompression failed with code: {result}");

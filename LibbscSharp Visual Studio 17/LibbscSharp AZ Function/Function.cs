@@ -78,14 +78,14 @@ public class Function
             {
                 return new BadRequestObjectResult("Input data is already compressed.");
             }
-            // 2. Prepare input/output streams for your native compressor
-            var inputStream = new MemoryStream(inputData, false); // read-only
+            // 2. Prepare output streams for native compressor
             var outputStream = new MemoryStream();
-            _logger.LogInformation($"Input file size : {inputStream.Length}");
+            _logger.LogInformation($"Input file size : {inputData.Length}");
 
             // 3. Call your native compressor
             int result = Compressor.CompressOmp(
-                inputStream,
+                inputData,
+                inputData.Length,
                 outputStream,
                 blockSizeMb * 1024 * 1024, // blocksize (ram consume about 2x block size per thread)
                 NumThreads: 0, // 0 = auto (uses all available cores) Note that Azure Function basic plan only have one core
@@ -121,7 +121,7 @@ public class Function
             using (var memoryStream = new MemoryStream())
             {
                 req.Body.CopyToAsync(memoryStream).Wait();
-                inputData = memoryStream.ToArray();
+                inputData = memoryStream.GetBuffer();
             }
             if (inputData.Length == 0)
             {
@@ -135,14 +135,15 @@ public class Function
             {
                 return new BadRequestObjectResult("Input does not contain BSC compressed data, expected header 'bsc1'.");
             }
-            // 2. Prepare input/output streams for your native compressor
-            var inputStream = new MemoryStream(inputData, false); // read-only
+            // 2. Prepare output streams for native compressor
             var outputStream = new MemoryStream();
-            _logger.LogInformation($"Input file size : {inputStream.Length}");
+            _logger.LogInformation($"Input file size : {inputData.Length}");
 
             // 3. Call your native compressor
+
             int result = BscDotNet.Compressor.DecompressOmp(
-                inputStream,
+                inputData,
+                inputData.Length,
                 outputStream,
                 numThreads: 0 // 0 = auto (uses all available cores) Note that Azure Function basic plan only have one core
             );

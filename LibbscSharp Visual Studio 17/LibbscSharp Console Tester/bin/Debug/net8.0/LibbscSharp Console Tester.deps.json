@@ -18,6 +18,17 @@
             "fileVersion": "0.0.0.0"
           }
         }
+      },
+      "LibbscSharp Net Core/1.0.0": {
+        "dependencies": {
+          "bscwrapperCLR .NET Core": "1.0.0"
+        },
+        "runtime": {
+          "LibbscSharp Net Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -28,6 +39,11 @@
       "sha512": ""
     },
     "bscwrapperCLR .NET Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LibbscSharp Net Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

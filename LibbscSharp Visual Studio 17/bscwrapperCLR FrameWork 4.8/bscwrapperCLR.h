@@ -6,7 +6,7 @@ namespace BscDotNet {
     public ref class Compressor {
     public:
         // OMP
-        static int CompressOmp(Stream^ inputStream, Stream^ outputStream, int blockSize, int NumThreads, int lzpHashSize, int lzpMinLen, int blockSorter/*1=LIBBSC_BLOCKSORTER_BWT*/, int coder/*1=LIBBSC_CODER_QLFC_STATIC*/);
-        static int DecompressOmp(Stream^ inputStream, Stream^ outputStream, int numThreads);
+        static int CompressOmp(array<unsigned char>^ inputData, long long dataLength, Stream^ outputStream, int blockSize, int NumThreads, int lzpHashSize, int lzpMinLen, int blockSorter, int coder);
+        static int DecompressOmp(array<unsigned char>^ inputData, long long dataLength, Stream^ outputStream, int numThreads);
     };
 }

@@ -30,270 +30,294 @@ typedef struct BSC_BLOCK_HEADER
 } BSC_BLOCK_HEADER;
 
 
-int BscDotNet::Compressor::CompressOmp(Stream^ inputStream, Stream^ outputStream, int blockSize, int NumThreads, int lzpHashSize, int lzpMinLen, int blockSorter, int coder)
+/**
+Compress a stream of data.
+@param inputData                   - the input data to compress
+@param dataLength                  - input data exact length
+@param outputStream                - the output compressed data including global header + blocks headers
+@param blockSize                   - the maximum block size in Byte to compress sequentially, higher value improve ratio while consuming more RAM. Default if 25 MB.
+@param NumThreads                  - the number of threads to use if the file is multy-blocks (depend on input size and block size)
+@param lzpHashSize                 - the hash table size if LZP enabled, 0 otherwise. Must be in range [0, 10..28].
+@param lzpMinLen                   - the minimum match length if LZP enabled, 0 otherwise. Must be in range [0, 4..255].
+@param blockSorter                 - the block sorting algorithm. Must be in range [ST3..ST8, BWT].
+@param coder                       - the entropy coding algorithm. Must be in range 1..3
+@return 0 if succed, nagative value for error code
+*/
+int BscDotNet::Compressor::CompressOmp(
+    array<unsigned char>^ inputData,
+    long long dataLength,
+    Stream^ outputStream,
+    int blockSize,
+    int NumThreads,
+    int lzpHashSize,
+    int lzpMinLen,
+    int blockSorter,
+    int coder)
 {
-    // Checks
-    if (inputStream == nullptr || outputStream == nullptr) return LIBBSC_BAD_PARAM;
-    if (!inputStream->CanRead || !outputStream->CanWrite || !inputStream->CanSeek) return LIBBSC_NOT_SEEKABLE;
+    if (inputData == nullptr || outputStream == nullptr) return LIBBSC_BAD_PARAM;
+    if (!outputStream->CanWrite) return LIBBSC_BAD_PARAM;
     if (coder < 1 || coder > 3) return LIBBSC_COMPLVL_OUTRANGE;
 
-    // Default values
     if (lzpHashSize == 0) lzpHashSize = 16;
     if (lzpMinLen == 0) lzpMinLen = 128;
+
     int features = LIBBSC_DEFAULT_FEATURES;
-    signed char sortingContexts = LIBBSC_CONTEXTS_FOLLOWING; // or bsc auto detect
+    signed char sortingContexts = LIBBSC_CONTEXTS_FOLLOWING;
+
     if (NumThreads > 0)
         omp_set_num_threads(NumThreads);
-    bsc_init(features);
-    
-    // Calc block number :
-    long long fileSize = inputStream->Length;
-    int nBlocks = (blockSize > 0) ? (int)((fileSize + (long long)blockSize - 1) / blockSize) : 0;
-    
-    signed char recordSize = 1;
-    long long blockOffset = 0, position = 0;
-    int compressionError = LIBBSC_NO_ERROR;
 
-    // === Global BSC1 header ===
-    outputStream->Write(gcnew array<Byte>{ 'b', 's', 'c', 0x31 }, 0, 4);  // "bsc1"
+    bsc_init(features);
+
+    // Calc block number :
+    long long fileSize = dataLength; // inputData->Length;
+    if (fileSize == 0) {
+        return LIBBSC_BAD_PARAM;
+    }
+    int nBlocks = (blockSize > 0) ? (int)((fileSize + (long long)blockSize - 1) / blockSize) : 0;
+
+    // Write global header
+    outputStream->Write(gcnew array<Byte>{ 'b', 's', 'c', 0x31 }, 0, 4);
     array<Byte>^ nBlocksBytes = gcnew array<Byte>(4);
     pin_ptr<Byte> pinN = &nBlocksBytes[0];
-    *(int*)pinN = nBlocks;  // little-endian int
-    outputStream->Write(nBlocksBytes, 0, 4);   
-    
-    // Loop until all stream proceed
-    inputStream->Position = 0;
+    *(int*)pinN = nBlocks;
+    outputStream->Write(nBlocksBytes, 0, 4);
+
+    signed char recordSize = 1;
+    int compressionError = LIBBSC_NO_ERROR;
+
+    // Pre-allocate one temporary working buffer per thread (max block size + header + safety)
+    const int headerSize = 10;
+    const int extraSafety = 2048;
+    array<unsigned char>^ tempBuffer = gcnew array<unsigned char>(blockSize + headerSize + extraSafety);
+
+    pin_ptr<unsigned char> pinTemp = &tempBuffer[0];
+    unsigned char* workBuffer = pinTemp;
+
 #pragma omp parallel for schedule(dynamic) if(nBlocks > 1)
     for (int blockIndex = 0; blockIndex < nBlocks; blockIndex++)
     {
+        if (compressionError != LIBBSC_NO_ERROR) continue;
+
         long long blockOffset = (long long)blockIndex * blockSize;
         int currentBlockSize = (int)System::Math::Min((long long)blockSize, fileSize - blockOffset);
 
-        // Allouer buffers par thread
-        array<unsigned char>^ inputBlock = gcnew array<unsigned char>(currentBlockSize);
-        array<unsigned char>^ outputBlock = gcnew array<unsigned char>(currentBlockSize + LIBBSC_HEADER_SIZE + 2048);
+        // Pin the input block directly from inputData
+        pin_ptr<unsigned char> pinInput = &inputData[(int)blockOffset];
+        unsigned char* inputPtr = pinInput;
 
-        // Read
-#pragma omp critical(input_stream)
-        {
-            inputStream->Position = blockOffset;
-            inputStream->Read(inputBlock, 0, currentBlockSize);
-        }
+        // Copy input block to temp buffer + header space
+        // This is the ONLY copy we do per block
+        std::memcpy(workBuffer + headerSize, inputPtr, currentBlockSize);
 
-        pin_ptr<unsigned char> pinInput = &inputBlock[0];
-        pin_ptr<unsigned char> pinOutput = &outputBlock[0];
-        unsigned char* buffer = pinInput;
-        unsigned char* outBuffer = pinOutput;
+        // In-place compression: input and output are the same (after header)
+        unsigned char* compressPtr = workBuffer + headerSize;
 
-        unsigned char* compressPtr = outBuffer + 10;  // leave 10-byte gap
-        // Compress
-        int compressedSize = bsc_compress(buffer, compressPtr, currentBlockSize + 10, lzpHashSize, lzpMinLen, blockSorter, coder, features);
+        int compressedSize = bsc_compress(
+            compressPtr,           // input
+            compressPtr,           // output == input → triggers in-place path
+            currentBlockSize,
+            lzpHashSize,
+            lzpMinLen,
+            blockSorter,
+            coder,
+            features);
+
         if (compressedSize < 0)
         {
-            if (compressionError == LIBBSC_NO_ERROR)
-                compressionError = compressedSize;
-            break;
+#pragma omp critical(error)
+            {
+                if (compressionError == LIBBSC_NO_ERROR)
+                    compressionError = compressedSize;
+            }
+        continue;
         }
-        // Now write header at start
-        unsigned char* headerPtr = outBuffer;
 
-        uint64_t offset64 = blockOffset;  // assuming blockOffset is uint64_t
-        std::memcpy(headerPtr + 0, &offset64, 8);
+        // Write block header
+        uint64_t offset64 = (uint64_t)blockOffset;
+        std::memcpy(workBuffer + 0, &offset64, 8);
+        workBuffer[8] = (unsigned char)recordSize;
+        workBuffer[9] = (unsigned char)sortingContexts;
 
-        headerPtr[8] = (unsigned char)recordSize;
-        headerPtr[9] = (unsigned char)sortingContexts;
-
-        // Then write the whole thing in one go
+        // Write header + compressed data in one go
 #pragma omp critical(output_stream)
         {
-            // If outputStream is System::IO::Stream^ (managed)
-            // Pin the native buffer and write
-            pin_ptr<unsigned char> pinned = &outBuffer[0];
-            array<Byte>^ managedWrapper = gcnew array<Byte>(10 + compressedSize);
-            Marshal::Copy(IntPtr(pinned), managedWrapper, 0, 10 + compressedSize);
-            outputStream->Write(managedWrapper, 0, 10 + compressedSize);
+            pin_ptr<unsigned char> pinWrite = workBuffer;
+            array<Byte>^ writeArray = tempBuffer; // reuse the same array
+            outputStream->Write(writeArray, 0, headerSize + compressedSize);
         }
-
-        /*int compressedSize = bsc_compress(buffer, outBuffer, currentBlockSize, lzpHashSize, lzpMinLen, blockSorter, coder, features);
-        // Store error
-        if (compressedSize < 0)
-        {
-            if (compressionError == LIBBSC_NO_ERROR)
-                compressionError = compressedSize;
-            break;
-        }
-
-        // Write
-#pragma omp critical(output_stream)
-        {
-            // Même code optimisé d'écriture avec finalBlock
-            array<Byte>^ finalBlock = gcnew array<Byte>(10 + compressedSize);
-            array<Byte>^ offsetBytes = BitConverter::GetBytes(blockOffset);
-            Array::Copy(offsetBytes, 0, finalBlock, 0, 8);
-            finalBlock[8] = (Byte)recordSize;
-            finalBlock[9] = (Byte)sortingContexts;
-            Marshal::Copy(IntPtr(outBuffer), finalBlock, 10, compressedSize);
-            outputStream->Write(finalBlock, 0, 10 + compressedSize);
-        }*/
     }
-    if (compressionError != LIBBSC_NO_ERROR)
-        return compressionError;
-    return LIBBSC_NO_ERROR;
+
+    return compressionError != LIBBSC_NO_ERROR ? compressionError : LIBBSC_NO_ERROR;
 }
 
-
-int BscDotNet::Compressor::DecompressOmp(Stream^ inputStream, Stream^ outputStream, int numThreads)
+/**
+* Decompress a stream of data.
+* @param inputData                          - the compressed input data
+* @param dataLength                         - input data exact length
+* @param outputStream                       - the output decompressed data result
+* @param numThreads                         - the number of threads to use if the file is multy-blocks
+* @return 0 if succed, nagative value for error code
+*/
+int BscDotNet::Compressor::DecompressOmp(
+    array<unsigned char>^ inputData,
+    long long dataLength,
+    Stream^ outputStream,
+    int numThreads)
 {
-    if (inputStream == nullptr || outputStream == nullptr)
+    if (inputData == nullptr || outputStream == nullptr || dataLength <= 0 || dataLength > inputData->Length)
         return LIBBSC_BAD_PARAM;
-    if (!inputStream->CanRead || !inputStream->CanSeek)
-        return LIBBSC_NOT_SEEKABLE;
+    if (!outputStream->CanWrite || !outputStream->CanSeek) return LIBBSC_BAD_PARAM;
 
     bsc_init(LIBBSC_DEFAULT_FEATURES);
     int features = LIBBSC_DEFAULT_FEATURES;
 
 #ifdef _OPENMP
-    if (numThreads > 0)
-        omp_set_num_threads(numThreads);
+    if (numThreads > 0) omp_set_num_threads(numThreads);
 #endif
 
-    long long fileSize = inputStream->Length;
-    inputStream->Position = 0;
+    pin_ptr<unsigned char> pinInput = &inputData[0];
+    unsigned char* inputPtr = pinInput;
 
-    // === Lire header global ===
-    array<Byte>^ sign = gcnew array<Byte>(4);
-    int read = inputStream->Read(sign, 0, 4);
-    if (read < 4 || sign[0] != 'b' || sign[1] != 's' || sign[2] != 'c' || sign[3] != 0x31)
-        return LIBBSC_NOT_SUPPORTED; // Pas un fichier BSC valide
+    long long pos = 0;
 
-    array<Byte>^ nBlocksBytes = gcnew array<Byte>(4);
-    read = inputStream->Read(nBlocksBytes, 0, 4);
-    if (read < 4) return LIBBSC_DATA_CORRUPT;
-    pin_ptr<Byte> pinN = &nBlocksBytes[0];
-    int nBlocks = *(int*)pinN;
+    // Global header check (single-threaded, safe)
+    if (dataLength < 8 ||
+        inputPtr[0] != 'b' || inputPtr[1] != 's' || inputPtr[2] != 'c' || inputPtr[3] != 0x31)
+        return LIBBSC_NOT_SUPPORTED;
 
+    int nBlocks = *(int*)(inputPtr + 4);
     if (nBlocks <= 0) return LIBBSC_DATA_CORRUPT;
+
+    pos = 8;
 
     int decompressionError = LIBBSC_NO_ERROR;
 
-#pragma omp parallel if(nBlocks > 1) shared(decompressionError)
+#pragma omp parallel if(nBlocks > 1) shared(decompressionError, pos)
     {
-        // Buffers par thread (réutilisés)
-        array<unsigned char>^ threadBuffer = nullptr;
-        int bufferCapacity = 0;
+        // Per-thread buffer (start with reasonable size, resize if needed)
+        array<unsigned char>^ threadBuffer = gcnew array<unsigned char>(32 * 1024 * 1024 + 4096);
+        pin_ptr<unsigned char> pinBuf = &threadBuffer[0];
+        unsigned char* buffer = pinBuf;
+        int bufferCapacity = threadBuffer->Length;
+
+        long long localHeaderPos = 0;
+        int localBlockSize = 0;  // total compressed size including LIBBSC_HEADER_SIZE
 
 #pragma omp for schedule(dynamic)
         for (int blockIndex = 0; blockIndex < nBlocks; blockIndex++)
         {
+            if (decompressionError != LIBBSC_NO_ERROR) continue;
+
+            long long blockOffset = 0;
             signed char recordSize = 0;
             signed char sortingContexts = 0;
-            long long blockOffset = 0;
-            int blockSize = 0;
             int dataSize = 0;
 
-            array<Byte>^ blockHeaderBytes = gcnew array<Byte>(10);
-            array<unsigned char>^ compressedBlock = nullptr;
+            bool blockValid = false;
 
-            // === Lecture du block header (10 octets) + bloc compressé ===
-#pragma omp critical(input_stream)
+            // === Fully atomic block header + size reading ===
+#pragma omp critical(input_reading)
             {
-                if (inputStream->Position >= fileSize)
+                if (pos + 10 > dataLength)
                 {
                     decompressionError = LIBBSC_DATA_CORRUPT;
                 }
-
-                inputStream->Read(blockHeaderBytes, 0, 10);
-                pin_ptr<Byte> pinH = &blockHeaderBytes[0];
-                BSC_BLOCK_HEADER* header = (BSC_BLOCK_HEADER*)pinH;
-                blockOffset = header->blockOffset;
-                recordSize = header->recordSize;
-                sortingContexts = header->sortingContexts;
-
-                if (recordSize < 1 ||
-                    (sortingContexts != LIBBSC_CONTEXTS_FOLLOWING && sortingContexts != LIBBSC_CONTEXTS_PRECEDING))
+                else
                 {
-                    decompressionError = LIBBSC_NOT_SUPPORTED;
+                    unsigned char* headerPtr = inputPtr + pos;
+
+                    blockOffset = *(uint64_t*)headerPtr;
+                    recordSize = headerPtr[8];
+                    sortingContexts = headerPtr[9];
+
+                    if (recordSize < 1 ||
+                        (sortingContexts != LIBBSC_CONTEXTS_FOLLOWING && sortingContexts != LIBBSC_CONTEXTS_PRECEDING))
+                    {
+                        decompressionError = LIBBSC_NOT_SUPPORTED;
+                    }
+                    else if (pos + 10 + LIBBSC_HEADER_SIZE > dataLength)
+                    {
+                        decompressionError = LIBBSC_DATA_CORRUPT;
+                    }
+                    else
+                    {
+                        int rc = bsc_block_info(inputPtr + pos + 10, LIBBSC_HEADER_SIZE, &localBlockSize, &dataSize, features);
+                        if (rc != LIBBSC_NO_ERROR)
+                        {
+                            decompressionError = rc;
+                        }
+                        else
+                        {
+                            if (pos + 10 + localBlockSize <= dataLength)
+                            {
+                                localHeaderPos = pos;
+                                pos += 10 + localBlockSize;  // advance only if fully valid
+                                blockValid = true;
+                            }
+                        }
+                    }
                 }
-
-                // Lire le header interne libbsc (28 octets) pour connaître les tailles
-                array<unsigned char>^ bscHeader = gcnew array<unsigned char>(LIBBSC_HEADER_SIZE);
-                inputStream->Read(bscHeader, 0, LIBBSC_HEADER_SIZE);
-                pin_ptr<unsigned char> pinBsc = &bscHeader[0];
-
-                int rc = bsc_block_info(pinBsc, LIBBSC_HEADER_SIZE, &blockSize, &dataSize, features);
-                if (rc != LIBBSC_NO_ERROR)
-                {
-                    decompressionError = rc;
-                }
-
-                // Lire le reste du bloc compressé
-                int payloadSize = blockSize - LIBBSC_HEADER_SIZE;
-                compressedBlock = gcnew array<unsigned char>(blockSize);
-                Array::Copy(bscHeader, 0, compressedBlock, 0, LIBBSC_HEADER_SIZE);
-                inputStream->Read(compressedBlock, LIBBSC_HEADER_SIZE, payloadSize);
             }
 
-            // Allouer/réutiliser buffer décompression
-            int needed = System::Math::Max(blockSize, dataSize);
-            if (threadBuffer == nullptr || threadBuffer->Length < needed)
+            if (!blockValid || decompressionError != LIBBSC_NO_ERROR) continue;
+
+            // === Safe copy into thread buffer ===
+            int needed = System::Math::Max(localBlockSize, dataSize);
+            if (needed > bufferCapacity)
             {
-                threadBuffer = gcnew array<unsigned char>(needed + 2048);
+                threadBuffer = gcnew array<unsigned char>(needed + 4096);
+                pinBuf = &threadBuffer[0];
+                buffer = pinBuf;
+                bufferCapacity = threadBuffer->Length;
             }
 
-            pin_ptr<unsigned char> pinBuf = &threadBuffer[0];
-            unsigned char* buffer = pinBuf;
+            // This memcpy is now guaranteed safe
+            std::memcpy(buffer, inputPtr + localHeaderPos + 10, localBlockSize);
 
-            // Copier le bloc compressé
-            pin_ptr<unsigned char> pinSrc = &compressedBlock[0];
-            pin_ptr<unsigned char> pinDst = &threadBuffer[0];
-            memcpy(pinDst, pinSrc, blockSize);
-
-            // === Décompression ===
-            int result = bsc_decompress(buffer, blockSize, buffer, dataSize, features);
+            // === In-place decompression ===
+            int result = bsc_decompress(buffer, localBlockSize, buffer, dataSize, features);
             if (result < LIBBSC_NO_ERROR)
             {
 #pragma omp critical(error_handling)
-                {
-                    if (decompressionError == LIBBSC_NO_ERROR)
-                        decompressionError = result;
-                }
+                if (decompressionError == LIBBSC_NO_ERROR)
+                    decompressionError = result;
+                continue;
             }
 
-            // Reverse si PRECEDING
             if (sortingContexts == LIBBSC_CONTEXTS_PRECEDING)
             {
                 result = bsc_reverse_block(buffer, dataSize, features);
                 if (result != LIBBSC_NO_ERROR)
                 {
+#pragma omp critical(error_handling)
                     decompressionError = result;
                 }
+                continue;
             }
 
-            // Reorder reverse si recordSize > 1
             if (recordSize > 1)
             {
                 result = bsc_reorder_reverse(buffer, dataSize, recordSize, features);
                 if (result != LIBBSC_NO_ERROR)
                 {
+#pragma omp critical(error_handling)
                     decompressionError = result;
                 }
+                continue;
             }
 
-            // === Écriture dans le bon ordre (seek + write) ===
+            // === Write output ===
 #pragma omp critical(output_stream)
             {
                 if (decompressionError == LIBBSC_NO_ERROR)
                 {
                     outputStream->Position = blockOffset;
-                    array<Byte>^ outputData = gcnew array<Byte>(dataSize);
-                    Marshal::Copy(IntPtr(buffer), outputData, 0, dataSize);
-                    outputStream->Write(outputData, 0, dataSize);
+                    outputStream->Write(threadBuffer, 0, dataSize);
                 }
             }
         }
     }
 
-    if (decompressionError != LIBBSC_NO_ERROR)
-        return decompressionError;
-    return LIBBSC_NO_ERROR;
+    return decompressionError != LIBBSC_NO_ERROR ? decompressionError : LIBBSC_NO_ERROR;
 }

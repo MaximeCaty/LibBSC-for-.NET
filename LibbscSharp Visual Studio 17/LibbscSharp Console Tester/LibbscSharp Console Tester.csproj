@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\bscwrapperCLR .Net Core\bscwrapperCLR .NET Core.vcxproj" />
+    <ProjectReference Include="..\LibbscSharp Net Core\LibbscSharp Net Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,17 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(538,5): warning MSB8028: Le répertoire intermédiaire (x64\Debug\) contient des fichiers partagés provenant d'un autre projet (LibBSC CLR Port .Net Core.vcxproj, LibBSC CLR Port .Net Core.vcxproj). Cela peut entraîner un comportement de nettoyage et de regénération incorrect.
   bscwrapperCLR.cpp
-C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\bscwrapperCLR FrameWork 4.8\bscwrapperCLR.cpp(36,2): error C2337: 'SuppressUnmanagedCodeSecurity' : attribut introuvable
   preprocessing.cpp
   .NETFramework,Version=4.8.AssemblyAttributes.cpp
   Génération de code en cours...
+  bscwrapperCLR.obj : module MSIL détecté ; liens incrémentiels désactivés pour MSIL ; édition de liens complète en cours
+libbsc.lib(libbsc.cpp.obj) : warning LNK4099: PDB 'libbsc.pdb' n'a pu être trouvé avec 'libbsc.lib(libbsc.cpp.obj)' ou sur 'C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\libbsc.pdb' ; l'objet sera lié sans informations de débogage
+libbsc.lib(platform.cpp.obj) : warning LNK4099: PDB 'libbsc.pdb' n'a pu être trouvé avec 'libbsc.lib(platform.cpp.obj)' ou sur 'C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\libbsc.pdb' ; l'objet sera lié sans informations de débogage
+libbsc.lib(adler32.cpp.obj) : warning LNK4099: PDB 'libbsc.pdb' n'a pu être trouvé avec 'libbsc.lib(adler32.cpp.obj)' ou sur 'C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\libbsc.pdb' ; l'objet sera lié sans informations de débogage
+libbsc.lib(bwt.cpp.obj) : warning LNK4099: PDB 'libbsc.pdb' n'a pu être trouvé avec 'libbsc.lib(bwt.cpp.obj)' ou sur 'C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\libbsc.pdb' ; l'objet sera lié sans informations de débogage
+libbsc.lib(lzp.cpp.obj) : warning LNK4099: PDB 'libbsc.pdb' n'a pu être trouvé avec 'libbsc.lib(lzp.cpp.obj)' ou sur 'C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\libbsc.pdb' ; l'objet sera lié sans informations de débogage
+libbsc.lib(coder.cpp.obj) : warning LNK4099: PDB 'libbsc.pdb' n'a pu être trouvé avec 'libbsc.lib(coder.cpp.obj)' ou sur 'C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\libbsc.pdb' ; l'objet sera lié sans informations de débogage
+libbsc.lib(st.cpp.obj) : warning LNK4099: PDB 'libbsc.pdb' n'a pu être trouvé avec 'libbsc.lib(st.cpp.obj)' ou sur 'C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\libbsc.pdb' ; l'objet sera lié sans informations de débogage
+libbsc.lib(libsais.c.obj) : warning LNK4099: PDB 'libbsc.pdb' n'a pu être trouvé avec 'libbsc.lib(libsais.c.obj)' ou sur 'C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\libbsc.pdb' ; l'objet sera lié sans informations de débogage
+libbsc.lib(qlfc.cpp.obj) : warning LNK4099: PDB 'libbsc.pdb' n'a pu être trouvé avec 'libbsc.lib(qlfc.cpp.obj)' ou sur 'C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\libbsc.pdb' ; l'objet sera lié sans informations de débogage
+libbsc.lib(qlfc_model.cpp.obj) : warning LNK4099: PDB 'libbsc.pdb' n'a pu être trouvé avec 'libbsc.lib(qlfc_model.cpp.obj)' ou sur 'C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\libbsc.pdb' ; l'objet sera lié sans informations de débogage
+  bscwrapperCLR FrameWork 4.8.vcxproj -> C:\Users\Max\Source\Repos\LibBSC-for-.NET\LibbscSharp Visual Studio 17\x64\Debug\bscwrapperCLR .NET Framework.dll

@@ -10,5 +10,5 @@ Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e0
 Class BscDotNet.Compressor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
-    CompressOmp(Stream, Stream, Int32, Int32, Int32, Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig
-    DecompressOmp(Stream, Stream, Int32): PrivateScope, Public, Static, HideBySig
+    CompressOmp(Byte[], Int64, Stream, Int32, Int32, Int32, Int32, Int32, Int32): PrivateScope, Public, Static, HideBySig
+    DecompressOmp(Byte[], Int64, Stream, Int32): PrivateScope, Public, Static, HideBySig
