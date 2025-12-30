@@ -42,21 +42,19 @@ page 50100 "LibbscSharp Tester"
                         if InStr.Length = 0 then
                             exit;
                         OriginalSize := InStr.Length;
-                        Libbsc := Libbsc.LibscSharp();
 
                         /**** GZip ****/
                         TestGZip(InStr, DurGZ, CompressedSizeGZ, DecompDurGZ);
                         CompRatioGZ := round((1 - (CompressedSizeGZ / OriginalSize)) * 100, 0.1);
 
-
-                        /***** BSC *****/
-                        TestBSC(InStr, DurBSC, CompressedSizeBSC, DecompDurBSC);
-                        CompRatioBSC := round((1 - (CompressedSizeBSC / OriginalSize)) * 100, 0.1);
-
                         /***** BSC Azure *****/
                         if (Rec."Azure Function URL" <> '') and (Rec."Key" <> '') then begin
                             TestBSCAzure(InStr, DurBSCAzure, CompressedSizeBSCAzure, DecompDurBSCAzure);
                             CompRatioBSCAzure := round((1 - (CompressedSizeBSC / OriginalSize)) * 100, 0.1);
+                        end else begin
+                            /***** BSC DLL *****/
+                            TestBSC(InStr, DurBSC, CompressedSizeBSC, DecompDurBSC);
+                            CompRatioBSC := round((1 - (CompressedSizeBSC / OriginalSize)) * 100, 0.1);
                         end;
                     end;
                 }
@@ -70,7 +68,7 @@ page 50100 "LibbscSharp Tester"
 
             group(Compression1)
             {
-                Caption = 'LIBBSC Azure Compression';
+                Caption = 'LIBBSC Azure Function Compression';
 
                 field(DurAzure; DurBSCAzure)
                 {
@@ -95,7 +93,7 @@ page 50100 "LibbscSharp Tester"
             }
             group(Compression2)
             {
-                Caption = 'LIBBSC Compression';
+                Caption = 'LIBBSC DLL Compression';
 
                 field(Dur; DurBSC)
                 {
@@ -153,7 +151,6 @@ page 50100 "LibbscSharp Tester"
     end;
 
     var
-        Libbsc: Dotnet LibbscSharp;
         FileName: Text;
         DecompFileName: Text;
         BSCCompression: Codeunit "BSC Data Compression";

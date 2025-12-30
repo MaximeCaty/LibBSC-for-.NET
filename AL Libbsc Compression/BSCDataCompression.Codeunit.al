@@ -2,7 +2,6 @@ codeunit 50100 "BSC Data Compression"
 {
     var
         Libbsc: Dotnet LibbscSharp;
-        Instanciated: Boolean;
 
     procedure IsBSC(InputStream: InStream): Boolean
     var
@@ -30,12 +29,7 @@ codeunit 50100 "BSC Data Compression"
         if Header = 'bsc1' then
             Error(UnsupportedFormat);
 
-        if not Instanciated then begin
-            Libbsc := Libbsc.LibscSharp(); // instanciate static class
-            Instanciated := true;
-        end;
-
-        Libbsc.BSCCompress(InputStrToCompress, CompressedOutStr, CompressionLevel, 0, 100 * 1024 * 1024);
+        Libbsc.BSCCompress(InputStrToCompress, CompressedOutStr, CompressionLevel, 0, 25 * 1024 * 1024);
     end;
 
     procedure Decompress(InputStrToDeompress: InStream; DecompressedOutStr: OutStream)
@@ -48,11 +42,6 @@ codeunit 50100 "BSC Data Compression"
         InputStrToDeompress.Read(Header, 4);
         if Header <> 'bsc1' then
             Error(UnsupportedFormat);
-
-        if not Instanciated then begin
-            Libbsc := Libbsc.LibscSharp(); // instanciate static class
-            Instanciated := true;
-        end;
 
         Libbsc.BSCDecompress(InputStrToDeompress, DecompressedOutStr, 0);
     end;
